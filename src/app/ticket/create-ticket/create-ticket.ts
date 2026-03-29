@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-create-ticket',
@@ -7,6 +7,7 @@ import { Component, output } from '@angular/core';
   styleUrl: './create-ticket.css',
 })
 export class CreateTicket {
+  readonly isOpen = input.required<boolean>();
   close = output<void>();
 
   closeModal(): void {

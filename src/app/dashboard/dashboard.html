@@ -21,6 +21,4 @@
   <span>Create ticket</span>
 </button>
 
-@if (modalOpen()) {
-  <app-create-ticket (close)="closeModal()" />
-}
+<app-create-ticket [isOpen]="modalOpen()" (close)="closeModal()" />
