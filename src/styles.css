@@ -1,3 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-primary: oklch(45.5% 0.188 13.697); 
+}
+
+@layer base {
+  body {
+    @apply bg-slate-800 text-white;
+  }
+}
