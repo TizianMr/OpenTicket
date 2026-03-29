@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CreateTicket } from '../ticket/create-ticket/create-ticket';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [CreateTicket],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {}
+export class Dashboard {
+  modalOpen = signal(false);
+
+  openModal(): void {
+    this.modalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.modalOpen.set(false);
+  }
+}

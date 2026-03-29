@@ -1,4 +1,8 @@
-<button class="bg-primary hover:bg-primary/80 font-bold py-2 px-4 m-5 rounded inline-flex items-center gap-1 cursor-pointer">
+<button
+  class="bg-primary hover:bg-primary/80 font-bold py-2 px-4 m-5 rounded inline-flex items-center gap-1 cursor-pointer"
+  type="button"
+  (click)="openModal()"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -16,3 +20,7 @@
 
   <span>Create ticket</span>
 </button>
+
+@if (modalOpen()) {
+  <app-create-ticket (close)="closeModal()" />
+}
