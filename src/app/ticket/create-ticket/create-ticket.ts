@@ -1,14 +1,16 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
+import { Dropzone } from "../../ui/dropzone/dropzone";
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [],
+  imports: [Dropzone],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
 export class CreateTicket {
   readonly isOpen = input.required<boolean>();
   close = output<void>();
+  droppedFiles = signal<File[]>([]);
 
   closeModal(): void {
     this.close.emit();
@@ -22,7 +24,8 @@ export class CreateTicket {
 
   submitTicket(): void {
     // TODO: Replace this with real submit logic.
-    console.log('Ticket submitted');
+    const files = this.droppedFiles();
+    console.log('Ticket submitted', { files });
     this.closeModal();
   }
 }
