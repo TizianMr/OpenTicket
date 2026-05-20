@@ -1,9 +1,8 @@
 import { Component, input, output, signal } from '@angular/core';
-import { Dropzone } from "../../ui/dropzone/dropzone";
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [Dropzone],
+  imports: [],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
