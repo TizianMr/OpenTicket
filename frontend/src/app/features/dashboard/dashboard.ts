@@ -5,7 +5,6 @@ import { CreateTicket } from '../ticket/create-ticket/create-ticket';
   selector: 'app-dashboard',
   imports: [CreateTicket],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
 })
 export class Dashboard {
   modalOpen = signal(false);

@@ -12,17 +12,17 @@
       </button>
     </div>
 
-    <form class="mt-4 space-y-4" (ngSubmit)="submitTicket()">
+    <form #ticketForm="ngForm" class="mt-4 space-y-4" (ngSubmit)="submitTicket(ticketForm.value)">
       <div>
         <label class="mb-1 block text-sm font-medium" for="ticket-title">Title</label>
-        <input id="ticket-title" type="text"
+        <input name="title" ngModel id="ticket-title" type="text"
           class="w-full rounded border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary"
           required />
       </div>
 
       <div>
         <label class="mb-1 block text-sm font-medium" for="ticket-desc">Description</label>
-        <textarea id="ticket-desc"
+        <textarea name="description" ngModel id="ticket-desc"
           class="w-full rounded border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary"
           rows="4" required></textarea>
       </div>

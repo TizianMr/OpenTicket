@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Dashboard } from "./dashboard/dashboard";
+import { Dashboard } from './features/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
