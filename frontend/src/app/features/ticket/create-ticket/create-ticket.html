@@ -24,32 +24,48 @@
       </div>
 
       <form #ticketForm="ngForm" class="mt-4 space-y-4" (ngSubmit)="submitTicket(ticketForm.value)">
-        <div>
-          <label class="mb-1 block text-sm font-medium" for="ticket-title">Title</label>
+        <div class="control">
+          <label class="mb-1 block text-sm font-medium" for="ticket-title"
+            >Title <span class="text-red-700">*</span></label
+          >
           <input
             name="title"
+            #title="ngModel"
             ngModel
+            required
             id="ticket-title"
             type="text"
             class="w-full rounded border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
+
+          @if (ticketForm.submitted && title.invalid) {
+            <p class="text-red-700">Title is a required input.</p>
+          }
         </div>
 
-        <div>
-          <label class="mb-1 block text-sm font-medium" for="ticket-desc">Description</label>
+        <div class="control">
+          <label class="mb-1 block text-sm font-medium" for="ticket-desc"
+            >Description <span class="text-red-700">*</span></label
+          >
           <textarea
             name="description"
+            #desc="ngModel"
             ngModel
+            required
             id="ticket-desc"
             class="w-full rounded border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary"
             rows="4"
             required
           ></textarea>
+
+          @if (ticketForm.submitted && desc.invalid) {
+            <p class="text-red-700">Description is a required input.</p>
+          }
         </div>
 
         @if (error()) {
-          <p class="text-red-700"> Failed to save ticket: {{ error() }}</p>
+          <p class="text-red-700">Failed to save ticket: {{ error() }}</p>
         }
 
         <div class="flex items-center justify-end gap-2 pt-2">

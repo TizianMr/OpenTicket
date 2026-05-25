@@ -1,7 +1,6 @@
 import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { TicketService } from '../../../core/services/ticket';
-import { FormsModule } from '@angular/forms';
-import { CreateTicket as CreateTicketRequest } from '../../../models/Ticket';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -32,10 +31,13 @@ export class CreateTicket {
     }
   }
 
-  submitTicket(ticket: CreateTicketRequest): void {
+  submitTicket(formData: NgForm): void {
+    if (formData.invalid) return;
+
     this.isCreating.set(true);
     this.error.set(null);
-    const subscription = this.ticketService.createTicket(ticket).subscribe({
+
+    const subscription = this.ticketService.createTicket(formData.value).subscribe({
       error: (error: HttpErrorResponse) => {
         this.error.set(error.error.message);
         this.isCreating.set(false);
