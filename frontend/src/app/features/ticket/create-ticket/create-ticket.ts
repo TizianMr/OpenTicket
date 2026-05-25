@@ -2,10 +2,11 @@ import { Component, DestroyRef, inject, input, output, signal } from '@angular/c
 import { TicketService } from '../../../core/services/ticket';
 import { FormsModule } from '@angular/forms';
 import { CreateTicket as CreateTicketRequest } from '../../../models/Ticket';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
@@ -29,18 +30,17 @@ export class CreateTicket {
 
   submitTicket(ticket: CreateTicketRequest): void {
     this.isCreating.set(true);
-    const subscription = this.ticketService.createTicket(ticket).subscribe(
-      {
-        error: (error) => {
-          // TODO: handle error case
-        },
-        complete: () => {
-          this.isCreating.set(false);
-          // FIXME: wird immer gecalled?
-          this.closeModal()
-        } 
-      }
-    );
+    const subscription = this.ticketService.createTicket(ticket).subscribe({
+      error: (error) => {
+        this.isCreating.set(false);
+        // TODO: handle error case
+      },
+      complete: () => {
+        this.isCreating.set(false);
+        // FIXME: wird immer gecalled?
+        this.closeModal();
+      },
+    });
 
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
