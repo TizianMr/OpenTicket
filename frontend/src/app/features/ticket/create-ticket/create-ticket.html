@@ -48,6 +48,10 @@
           ></textarea>
         </div>
 
+        @if (error()) {
+          <p class="text-red-700"> Failed to save ticket: {{ error() }}</p>
+        }
+
         <div class="flex items-center justify-end gap-2 pt-2">
           <button
             type="button"

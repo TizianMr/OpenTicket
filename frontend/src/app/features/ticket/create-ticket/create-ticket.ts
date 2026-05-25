@@ -3,6 +3,7 @@ import { TicketService } from '../../../core/services/ticket';
 import { FormsModule } from '@angular/forms';
 import { CreateTicket as CreateTicketRequest } from '../../../models/Ticket';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-ticket',
@@ -14,6 +15,7 @@ export class CreateTicket {
   private destroyRef = inject(DestroyRef);
   private ticketService = inject(TicketService);
   isCreating = signal(false);
+  error = signal<string | null>(null);
 
   readonly isOpen = input.required<boolean>();
   close = output<void>();
@@ -30,14 +32,14 @@ export class CreateTicket {
 
   submitTicket(ticket: CreateTicketRequest): void {
     this.isCreating.set(true);
+    this.error.set(null);
     const subscription = this.ticketService.createTicket(ticket).subscribe({
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
+        this.error.set(error.error.message);
         this.isCreating.set(false);
-        // TODO: handle error case
       },
       complete: () => {
         this.isCreating.set(false);
-        // FIXME: wird immer gecalled?
         this.closeModal();
       },
     });
