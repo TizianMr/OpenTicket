@@ -14,14 +14,14 @@ export class CreateTicket {
   private destroyRef = inject(DestroyRef);
   private ticketService = inject(TicketService);
   isCreating = signal(false);
-  error = signal<string | null>(null);
+  errorMsg = signal<string | null>(null);
 
   readonly isOpen = input.required<boolean>();
-  close = output<void>();
+  readonly close = output<void>();
 
   closeModal(): void {
     this.close.emit();
-    this.error.set(null);
+    this.errorMsg.set(null);
     this.isCreating.set(false);
   }
 
@@ -35,11 +35,11 @@ export class CreateTicket {
     if (formData.invalid) return;
 
     this.isCreating.set(true);
-    this.error.set(null);
+    this.errorMsg.set(null);
 
     const subscription = this.ticketService.createTicket(formData.value).subscribe({
       error: (error: HttpErrorResponse) => {
-        this.error.set(error.error.message);
+        this.errorMsg.set(error.error.message);
         this.isCreating.set(false);
       },
       complete: () => {

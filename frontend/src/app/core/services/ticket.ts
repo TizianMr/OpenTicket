@@ -10,7 +10,6 @@ export class TicketService {
   private httpClient = inject(HttpClient);
 
   createTicket(ticket: CreateTicket): Observable<Ticket> {
-    console.log(ticket)
     return this.httpClient.post<Ticket>('tickets', ticket)
   }
 }

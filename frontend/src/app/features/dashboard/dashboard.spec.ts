@@ -19,4 +19,18 @@ describe('Dashboard', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialise modalOpen as false', () => {
+    expect(component.modalOpen()).toBe(false);
+  });
+
+  it('should set modalOpen to true when openModal is called', () => {
+    component.openModal();
+    expect(component.modalOpen()).toBe(true);
+  });
+
+  it('should set modalOpen to false when closeModal is called', () => {
+    component.closeModal();
+    expect(component.modalOpen()).toBe(false);
+  });
 });

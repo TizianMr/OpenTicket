@@ -7,7 +7,7 @@ import { CreateTicket } from '../ticket/create-ticket/create-ticket';
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
-  modalOpen = signal(false);
+  readonly modalOpen = signal(false);
 
   openModal(): void {
     this.modalOpen.set(true);
