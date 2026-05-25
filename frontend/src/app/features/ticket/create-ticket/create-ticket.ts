@@ -22,6 +22,8 @@ export class CreateTicket {
 
   closeModal(): void {
     this.close.emit();
+    this.error.set(null);
+    this.isCreating.set(false);
   }
 
   onOverlayClick(event: MouseEvent): void {
