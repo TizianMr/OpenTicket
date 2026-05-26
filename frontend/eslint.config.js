@@ -4,6 +4,7 @@ const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 const importPlugin = require("eslint-plugin-import-x");
+const prettierPlugin = require("eslint-plugin-prettier");
 
 module.exports = defineConfig([
   {
@@ -16,6 +17,7 @@ module.exports = defineConfig([
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
     ],
+    plugins: { prettier: prettierPlugin },
     processor: angular.processInlineTemplates,
     rules: {
       "@angular-eslint/directive-selector": [
@@ -85,6 +87,7 @@ module.exports = defineConfig([
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-inferrable-types": "off",
       "no-console": "error",
+      "prettier/prettier": "error",
     },
   },
   {
