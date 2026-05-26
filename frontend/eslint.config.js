@@ -3,6 +3,7 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const importPlugin = require("eslint-plugin-import-x");
 
 module.exports = defineConfig([
   {
@@ -12,6 +13,8 @@ module.exports = defineConfig([
       tseslint.configs.recommended,
       tseslint.configs.stylistic,
       angular.configs.tsRecommended,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
     ],
     processor: angular.processInlineTemplates,
     rules: {
@@ -69,6 +72,14 @@ module.exports = defineConfig([
         "error",
         {
           allowExpressions: true,
+        },
+      ],
+      'import-x/order': [
+        'error',
+        {
+          'groups': ['builtin', 'external', ['internal', 'sibling', 'parent'], 'index', 'type'],
+          'alphabetize': { order: 'asc', caseInsensitive: true },
+          'newlines-between': 'always',
         },
       ],
       "@typescript-eslint/no-unused-vars": "error",
