@@ -1,59 +1,140 @@
 # OpenTicket
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+OpenTicket is an open-source IT ticketing platform to create, manage and observe tickets.
 
-## Development server
+## Project goal
+
+<!-- 
+project goals: angular, spring boot, get familiar working with github (issues, workflows) -->
+
+## Techstack
+
+The project is developed using the following technologies:
+
+
+[Angular](https://angular.dev/) as frontend framework\
+[Tailwind CSS](https://tailwindcss.com/) as CSS framework
+
+[Spring Boot](https://spring.io/projects/spring-boot) as Java backend framework\
+[PostgreSQL](https://www.postgresql.org/) as database
+
+## Frontend
+
+### Installation and Running
+
+Install all dependencies by running this command in the `frontend` folder:
+```sh
+npm install
+```
 
 To start a local development server, run:
 
-```bash
-ng serve
+```sh
+npm start
+```
+Once the server is running, open your browser and navigate to http://localhost:4200/. The application will automatically reload whenever you modify any of the source files.
+
+
+### Linting and Testing
+
+Run the following command to check for code quality and linting issues:
+
+```sh
+npm run lint
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+To fix all auto fixable issues, run:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```sh
+npm run lint:fix
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To execute all unit tests, run:
 
-```bash
-ng generate --help
+```sh
+npm run test
 ```
 
-## Building
+### Folder structure
 
-To build the project run:
+This section highlights important files and folders along with descriptions.
 
-```bash
-ng build
+```
+frontend
+├── .prettierrc                     # Prettier configuration
+├── angular.json                    # Angular project configuration
+├── eslint.config.js                # ESLint configuration
+├── public                          # Static assets
+└── src                             # Application source code
+    ├── index.html                  # Main html entry point
+    ├── main.ts                     # App bootstrap entrypoint
+    ├── styles.css                  # Global styles
+    ├── app 
+    │   ├── app.ts                  # Root app component
+    │   ├── core                    
+    │   │   ├── interceptors        # Interceptor files
+    │   │   └── services            # Service files
+    │   └── features                # Each new feature gets a new folder here.
+    ├── models                      # Types and interfaces
+    └── environments                # env files
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Backend
 
-## Running unit tests
+### How to start
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Install all maven dependencies by running this command in the `backend` folder:
 
-```bash
-ng test
+```sh
+mvn clean install
 ```
 
-## Running end-to-end tests
+Before running the backend make sure you have a database up and running.
+You can change the database configuration inside the `application.properties` file.
 
-For end-to-end (e2e) testing, run:
+You can start the backend by running:
 
-```bash
-ng e2e
+```sh
+mvn spring-boot:run
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+By default, the REST API will be accessible at http://localhost:8080/api/v1 afterwards.
 
-## Additional Resources
+### How to test
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+To check for formatting issues, run:
+```sh
+mvn spotless:check
+```
+
+To run checkstyle, run:
+```sh
+mvn checkstyle:check
+```
+
+To run the tests, run:
+```sh
+mvn test
+```
+
+### Folder structure
+
+```
+backend
+├── checkstyle.xml                                  # Checkstyle configuration
+└── src                                            
+    ├── main/.../OpenTicket                         # Application files
+    │   │        ├── OpenTicketApplication.java     # Spring Boot entry point
+    │   │        ├── controllers                    # REST controllers
+    │   │        ├── domain                         # domain models
+    │   │        │   ├── dto                        # DTO files
+    │   │        │   └── entity                     # Entity files
+    │   │        ├── mapper                         # DTO mappers (interfaces)
+    │   │        │   └── impl                       # concrete implementation of DTO mappers
+    │   │        ├── repository                     # Repositories
+    │   │        └── service                        # service logic (interfaces)
+    │   │            └── impl                       # concrete implementation of services
+    │   └── resources/                              # Spring Boot resources
+    │       └── application.properties              # Spring Boot configuration
+    └── test/.../OpenTicket                         # Test files
+```
