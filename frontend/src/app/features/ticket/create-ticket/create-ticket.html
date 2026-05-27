@@ -5,6 +5,7 @@
     aria-modal="true"
     aria-labelledby="create-ticket-title"
     (click)="onOverlayClick($event)"
+    (keydown)="onOverlayClick($event)"
     animate.leave="leaving-animation"
   >
     <div
