@@ -1,16 +1,15 @@
 package dev.tizmr.OpenTicket.mapper.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import dev.tizmr.OpenTicket.domain.CreateTicketRequest;
 import dev.tizmr.OpenTicket.domain.dto.CreateTicketRequestDto;
 import dev.tizmr.OpenTicket.domain.dto.TicketDto;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
-import org.junit.jupiter.api.Test;
-
 import java.time.Instant;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 class TicketMapperImplTest {
 
@@ -18,7 +17,8 @@ class TicketMapperImplTest {
 
   @Test
   void shouldMapFromDto() {
-    CreateTicketRequestDto dto = new CreateTicketRequestDto("Login bug", "Users cannot log in on mobile");
+    CreateTicketRequestDto dto =
+        new CreateTicketRequestDto("Login bug", "Users cannot log in on mobile");
 
     CreateTicketRequest result = ticketMapper.fromDto(dto);
 
@@ -28,7 +28,14 @@ class TicketMapperImplTest {
 
   @Test
   void shouldMapToDto() {
-    Ticket ticket = new Ticket(UUID.randomUUID(), "Login bug", "Users cannot log in on mobile", TicketStatus.OPEN, Instant.now(), Instant.now());
+    Ticket ticket =
+        new Ticket(
+            UUID.randomUUID(),
+            "Login bug",
+            "Users cannot log in on mobile",
+            TicketStatus.OPEN,
+            Instant.now(),
+            Instant.now());
 
     TicketDto result = ticketMapper.toDto(ticket);
 
@@ -38,6 +45,5 @@ class TicketMapperImplTest {
     assertEquals(ticket.getStatus(), result.status());
     assertEquals(ticket.getCreatedAt(), result.createdAt());
     assertEquals(ticket.getUpdatedAt(), result.updatedAt());
-
   }
 }

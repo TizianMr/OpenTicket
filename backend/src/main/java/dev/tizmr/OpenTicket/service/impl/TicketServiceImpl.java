@@ -5,9 +5,8 @@ import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
 import dev.tizmr.OpenTicket.service.TicketService;
-import org.springframework.stereotype.Service;
-
 import java.time.Instant;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -20,16 +19,10 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public Ticket createTicket(CreateTicketRequest request) {
-    Instant now = Instant.now();
+    final Instant now = Instant.now();
 
-    Ticket ticket = new Ticket(
-      null,
-      request.title(),
-      request.description(),
-      TicketStatus.OPEN,
-      now,
-      now
-    );
+    final Ticket ticket =
+        new Ticket(null, request.title(), request.description(), TicketStatus.OPEN, now, now);
 
     return ticketRepository.save(ticket);
   }

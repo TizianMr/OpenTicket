@@ -23,8 +23,9 @@ public class TicketController {
   }
 
   @PostMapping
-  public ResponseEntity<TicketDto> createTicket(@Valid @RequestBody CreateTicketRequestDto createTicketRequestDto) {
-    Ticket created = ticketService.createTicket(ticketMapper.fromDto(createTicketRequestDto));
+  public ResponseEntity<TicketDto> createTicket(
+      @Valid @RequestBody CreateTicketRequestDto createTicketRequestDto) {
+    final Ticket created = ticketService.createTicket(ticketMapper.fromDto(createTicketRequestDto));
     return new ResponseEntity<>(ticketMapper.toDto(created), HttpStatus.CREATED);
   }
 }

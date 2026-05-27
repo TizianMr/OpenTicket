@@ -68,7 +68,7 @@ if [[ ! -d "$FRONTEND_DIR/node_modules" ]]; then
   npm ci --prefix "$FRONTEND_DIR"
 fi
 
-run_check "ESLint — lint" \
+run_check "ESLint — Code Quality and linting" \
   npm run lint --prefix "$FRONTEND_DIR"
 
 
