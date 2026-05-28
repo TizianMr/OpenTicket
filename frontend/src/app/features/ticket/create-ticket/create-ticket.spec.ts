@@ -1,10 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgForm } from '@angular/forms';
+import { of, Subject } from 'rxjs';
 
 import { CreateTicket } from './create-ticket';
-import { NgForm } from '@angular/forms';
 import { TicketService } from '../../../core/services/ticket';
-import { of, Subject } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Ticket } from '../../../models/Ticket';
 
 describe('CreateTicket', () => {
@@ -38,7 +38,7 @@ describe('CreateTicket', () => {
   });
 
   it('should emit close event when closeModal is called', () => {
-    const emitSpy = vi.spyOn(component.close, 'emit');
+    const emitSpy = vi.spyOn(component.modalClose, 'emit');
 
     component.closeModal();
 

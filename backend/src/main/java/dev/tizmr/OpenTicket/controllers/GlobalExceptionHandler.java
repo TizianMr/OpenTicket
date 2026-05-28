@@ -14,13 +14,13 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
-    String errorMsg = ex.getBindingResult().getFieldErrors()
-      .stream()
-      .findFirst()
-      .map(DefaultMessageSourceResolvable::getDefaultMessage)
-      .orElse("Validation failed.");
+    final String errorMsg =
+        ex.getBindingResult().getFieldErrors().stream()
+            .findFirst()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .orElse("Validation failed.");
 
-    ErrorDto errorDto = new ErrorDto(errorMsg);
+    final ErrorDto errorDto = new ErrorDto(errorMsg);
 
     return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
   }

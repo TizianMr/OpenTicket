@@ -1,8 +1,9 @@
-import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
-import { TicketService } from '../../../core/services/ticket';
-import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+
+import { TicketService } from '../../../core/services/ticket';
 
 @Component({
   selector: 'app-create-ticket',
@@ -17,15 +18,22 @@ export class CreateTicket {
   errorMsg = signal<string | null>(null);
 
   readonly isOpen = input.required<boolean>();
-  readonly close = output<void>();
+  readonly modalClose = output<void>();
 
   closeModal(): void {
-    this.close.emit();
+    this.modalClose.emit();
     this.errorMsg.set(null);
     this.isCreating.set(false);
   }
 
-  onOverlayClick(event: MouseEvent): void {
+  onOverlayClick(event: MouseEvent | KeyboardEvent): void {
+    if (event instanceof KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.closeModal();
+      }
+      return;
+    }
+
     if (event.target === event.currentTarget) {
       this.closeModal();
     }

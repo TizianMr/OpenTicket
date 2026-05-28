@@ -1,6 +1,7 @@
-import { TestBed } from '@angular/core/testing';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+
 import { baseUrlInterceptor } from './base-url.interceptor';
 
 describe('BaseUrlInterceptor', () => {
@@ -10,10 +11,7 @@ describe('BaseUrlInterceptor', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(withInterceptors([baseUrlInterceptor])),
-        provideHttpClientTesting(),
-      ],
+      providers: [provideHttpClient(withInterceptors([baseUrlInterceptor])), provideHttpClientTesting()],
     });
 
     http = TestBed.inject(HttpClient);
@@ -41,7 +39,7 @@ describe('BaseUrlInterceptor', () => {
   });
 
   it('should preserve request headers', () => {
-    http.get('tickets', { headers: { Authorization: 'Bearer token123' } }).subscribe();
+    http.get('tickets', { headers: { authorization: 'Bearer token123' } }).subscribe();
 
     const req = httpMock.expectOne('http://localhost:8080/api/v1/tickets');
     expect(req.request.headers.get('Authorization')).toBe('Bearer token123');

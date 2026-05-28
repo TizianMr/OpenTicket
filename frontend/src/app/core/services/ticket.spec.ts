@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { TicketService } from './ticket';
-import { HttpClient } from '@angular/common/http';
 import { CreateTicket } from '../../models/Ticket';
-import { of } from 'rxjs';
 
 describe('Ticket', () => {
   let service: TicketService;
