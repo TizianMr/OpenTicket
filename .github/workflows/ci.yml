@@ -1,0 +1,65 @@
+name: Code Quality checks and unit testing
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  backend:
+    name: Backend — Code Quality & Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run spotless
+        run: mvn --batch-mode spotless:check
+        working-directory: backend
+
+      - name: Run Checkstyle
+        run: mvn --batch-mode checkstyle:check
+        working-directory: backend
+
+      - name: Run unit tests
+        run: mvn --batch-mode test
+        working-directory: backend
+
+  frontend:
+    name: Frontend — Code Quality & Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Run type checks
+        run: npm run typecheck
+        working-directory: frontend
+
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: frontend
+
+      - name: Run unit tests
+        run: npm test
+        working-directory: frontend
