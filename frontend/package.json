@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "typecheck": "tsc",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prepare": "git config core.hooksPath .githooks"
