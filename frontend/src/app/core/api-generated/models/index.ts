@@ -18,7 +18,7 @@ export interface CreateTicketRequestDto {
 }
 
 export interface TicketDto {
-    id: string | null;
+    id: string;
     title: string;
     description: string;
     status: TicketStatus;

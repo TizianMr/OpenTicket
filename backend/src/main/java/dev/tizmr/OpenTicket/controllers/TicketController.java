@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200/")
-@Tag(name = "Ticket", description = "Ticket related endpoints")
+@Tag(name = "Tickets", description = "Ticket related endpoints")
 @RestController
 @RequestMapping(path = "api/v1/tickets")
 public class TicketController {

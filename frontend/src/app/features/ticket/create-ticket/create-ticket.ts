@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
-import { TicketService } from '../../../core/api-generated';
+import { TicketsService } from '../../../core/api-generated';
 
 @Component({
   selector: 'app-create-ticket',
@@ -13,7 +13,7 @@ import { TicketService } from '../../../core/api-generated';
 })
 export class CreateTicket {
   private destroyRef = inject(DestroyRef);
-  private ticketService = inject(TicketService);
+  private ticketService = inject(TicketsService);
   isCreating = signal(false);
   errorMsg = signal<string | null>(null);
 

@@ -4,11 +4,11 @@ import { NgForm } from '@angular/forms';
 import { of, Subject } from 'rxjs';
 
 import { CreateTicket } from './create-ticket';
-import { TicketDto, TicketService } from '../../../core/api-generated';
+import { TicketDto, TicketsService } from '../../../core/api-generated';
 
 describe('CreateTicket', () => {
   let component: CreateTicket;
-  let ticketService: TicketService;
+  let ticketService: TicketsService;
   let fixture: ComponentFixture<CreateTicket>;
 
   const mockTicketService = {
@@ -20,10 +20,10 @@ describe('CreateTicket', () => {
 
     await TestBed.configureTestingModule({
       imports: [CreateTicket],
-      providers: [{ provide: TicketService, useValue: mockTicketService }],
+      providers: [{ provide: TicketsService, useValue: mockTicketService }],
     }).compileComponents();
 
-    ticketService = TestBed.inject(TicketService);
+    ticketService = TestBed.inject(TicketsService);
     fixture = TestBed.createComponent(CreateTicket);
     fixture.componentRef.setInput('isOpen', false);
     component = fixture.componentInstance;
