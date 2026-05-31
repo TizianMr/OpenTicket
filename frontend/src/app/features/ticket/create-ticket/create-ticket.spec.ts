@@ -4,8 +4,7 @@ import { NgForm } from '@angular/forms';
 import { of, Subject } from 'rxjs';
 
 import { CreateTicket } from './create-ticket';
-import { TicketService } from '../../../core/services/ticket';
-import { Ticket } from '../../../models/Ticket';
+import { TicketDto, TicketService } from '../../../core/api-generated';
 
 describe('CreateTicket', () => {
   let component: CreateTicket;
@@ -109,7 +108,7 @@ describe('CreateTicket', () => {
   });
 
   it('should set errorMsg and isCreating to false on error', () => {
-    const subject = new Subject<Ticket>();
+    const subject = new Subject<TicketDto>();
     mockTicketService.createTicket.mockReturnValue(subject.asObservable());
 
     const mockForm = { invalid: false, value: {} } as unknown as NgForm;
@@ -123,7 +122,7 @@ describe('CreateTicket', () => {
   });
 
   it('should set isCreating to false and call closeModal on complete', () => {
-    const subject = new Subject<Ticket>();
+    const subject = new Subject<TicketDto>();
     mockTicketService.createTicket.mockReturnValue(subject.asObservable());
     const closeModalSpy = vi.spyOn(component, 'closeModal');
 

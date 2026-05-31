@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
-import { TicketService } from '../../../core/services/ticket';
+import { TicketService } from '../../../core/api-generated';
 
 @Component({
   selector: 'app-create-ticket',

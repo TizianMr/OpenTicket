@@ -24,7 +24,7 @@
         </button>
       </div>
 
-      <form #ticketForm="ngForm" class="mt-4 space-y-4" (ngSubmit)="submitTicket(ticketForm.value)">
+      <form #ticketForm="ngForm" class="mt-4 space-y-4" (ngSubmit)="submitTicket(ticketForm)">
         <div class="control">
           <label class="mb-1 block text-sm font-medium" for="ticket-title"
             >Title <span class="text-red-700">*</span></label
