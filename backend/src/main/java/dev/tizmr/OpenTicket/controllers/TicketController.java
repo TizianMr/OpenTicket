@@ -1,5 +1,6 @@
 package dev.tizmr.OpenTicket.controllers;
 
+import dev.tizmr.OpenTicket.domain.PagingResult;
 import dev.tizmr.OpenTicket.domain.dto.CreateTicketRequestDto;
 import dev.tizmr.OpenTicket.domain.dto.ErrorDto;
 import dev.tizmr.OpenTicket.domain.dto.TicketDto;
@@ -14,6 +15,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,10 +57,23 @@ public class TicketController {
 
   @Operation(summary = "Get a list of tickets")
   @GetMapping
-  public ResponseEntity<List<TicketDto>> listTickets() {
-    List<Ticket> tickets = ticketService.listTickets();
+  public PagingResult<TicketDto> listTickets(
+    @RequestParam(value = "page", defaultValue = "0") int page,
+    @RequestParam(value = "size", defaultValue = "25") int size
+  ) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Ticket> tickets = ticketService.listTickets(pageable);
+
     List<TicketDto> taskDtos = tickets.stream().map(ticketMapper::toDto).toList();
 
-    return ResponseEntity.ok(taskDtos);
+    return new PagingResult<>(
+      taskDtos,
+      tickets.getTotalPages(),
+      tickets.getTotalElements(),
+      tickets.getSize(),
+      tickets.getNumber()
+    );
+
+
   }
 }

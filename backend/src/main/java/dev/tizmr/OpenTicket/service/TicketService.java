@@ -2,11 +2,12 @@ package dev.tizmr.OpenTicket.service;
 
 import dev.tizmr.OpenTicket.domain.CreateTicketRequest;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TicketService {
 
   Ticket createTicket(CreateTicketRequest request);
 
-  List<Ticket> listTickets();
+  Page<Ticket> listTickets(Pageable pageable);
 }

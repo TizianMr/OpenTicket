@@ -6,7 +6,9 @@ import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
 import dev.tizmr.OpenTicket.service.TicketService;
 import java.time.Instant;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,7 +31,7 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
-  public List<Ticket> listTickets() {
-    return ticketRepository.findAll();
+  public Page<Ticket> listTickets(Pageable pageable) {
+    return ticketRepository.findAll(pageable);
   }
 }
