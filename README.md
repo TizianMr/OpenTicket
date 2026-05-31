@@ -34,6 +34,15 @@ npm start
 ```
 Once the server is running, open your browser and navigate to http://localhost:4200/. The application will automatically reload whenever you modify any of the source files.
 
+You can auto generate all models and services for the http client by running:
+
+```sh
+npm run generate:api
+```
+
+The required information is taken from the OpenAPI specification, so be sure that the backend is running while executing the command.
+By default the script will look for the OpenAPI specification at http://localhost:8080/v3/api-docs.
+
 
 ### Linting and Testing
 
@@ -71,10 +80,11 @@ frontend
     ├── styles.css                  # Global styles
     ├── app 
     │   ├── app.ts                  # Root app component
-    │   ├── core                    
-    │   │   ├── interceptors        # Interceptor files
-    │   │   └── services            # Service files
-    │   └── features                # Each new feature gets a new folder here.
+    │   ├── core
+    │   │   ├── api-generated       # Auto generated models and services                   
+    │   │   ├── interceptors        # Custom interceptor files
+    │   │   └── services            # Custom service files
+    │   └── features                # Application features
     ├── models                      # Types and interfaces
     └── environments                # env files
 ```
@@ -99,6 +109,8 @@ mvn spring-boot:run
 ```
 
 By default, the REST API will be accessible at http://localhost:8080/api/v1 afterwards.
+
+The swagger UI can be accessed here: http://localhost:8080/swagger-ui/index.html.
 
 ### How to test
 
@@ -125,15 +137,16 @@ backend
 └── src                                            
     ├── main/.../OpenTicket                         # Application files
     │   │        ├── OpenTicketApplication.java     # Spring Boot entry point
+    │   │        ├── config                         # Configuration files
     │   │        ├── controllers                    # REST controllers
-    │   │        ├── domain                         # domain models
+    │   │        ├── domain                         # Domain models
     │   │        │   ├── dto                        # DTO files
     │   │        │   └── entity                     # Entity files
     │   │        ├── mapper                         # DTO mappers (interfaces)
-    │   │        │   └── impl                       # concrete implementation of DTO mappers
+    │   │        │   └── impl                       # Concrete implementation of DTO mappers
     │   │        ├── repository                     # Repositories
-    │   │        └── service                        # service logic (interfaces)
-    │   │            └── impl                       # concrete implementation of services
+    │   │        └── service                        # Service logic (interfaces)
+    │   │            └── impl                       # Concrete implementation of services
     │   └── resources/                              # Spring Boot resources
     │       └── application.properties              # Spring Boot configuration
     └── test/.../OpenTicket                         # Test files
