@@ -33,7 +33,13 @@ public class TicketController {
 
   @Operation(summary = "Create a ticket")
   @ApiResponses({
-    @ApiResponse(responseCode = "201", description = "User created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TicketDto.class))),
+    @ApiResponse(
+        responseCode = "201",
+        description = "User created",
+        content =
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = TicketDto.class))),
     @ApiResponse(
         responseCode = "400",
         description = "Validation failed",

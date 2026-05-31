@@ -3,12 +3,11 @@ package dev.tizmr.OpenTicket.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Schema;
+import java.util.List;
+import java.util.Map;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
-import java.util.Map;
 
 @Configuration
 public class OpenAPIConfig {
@@ -20,19 +19,24 @@ public class OpenAPIConfig {
 
   @Bean
   public OpenApiCustomizer requiredFieldsCustomizer() {
-    return openApi -> openApi.getComponents()
-      .getSchemas()
-      .values()
-      .forEach(rawSchema -> {
-        Schema<?> schema = (Schema<?>) rawSchema;
-        Map<?, ?> rawProperties = schema.getProperties();
-        if (rawProperties != null) {
-          List<String> required = rawProperties.entrySet().stream()
-            .filter(e -> !Boolean.TRUE.equals(((Schema<?>) e.getValue()).getNullable()))
-            .map(e -> (String) e.getKey())
-            .toList();
-          schema.setRequired(required);
-        }
-      });
+    return openApi ->
+        openApi
+            .getComponents()
+            .getSchemas()
+            .values()
+            .forEach(
+                rawSchema -> {
+                  final Schema<?> schema = (Schema<?>) rawSchema;
+                  final Map<?, ?> rawProperties = schema.getProperties();
+                  if (rawProperties != null) {
+                    final List<String> required =
+                        rawProperties.entrySet().stream()
+                            .filter(
+                                e -> !Boolean.TRUE.equals(((Schema<?>) e.getValue()).getNullable()))
+                            .map(e -> (String) e.getKey())
+                            .toList();
+                    schema.setRequired(required);
+                  }
+                });
   }
 }
