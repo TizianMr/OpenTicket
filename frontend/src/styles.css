@@ -3,11 +3,20 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: oklch(45.5% 0.188 13.697); 
+  --color-primary: #18181B;
+  --color-surface: #27272A;
+  --color-elevated: #44444A;
+  --color-accent: #22D3EE;
+  --color-highlight: #A78BFA;
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-error: #EF4444; 
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
 }
 
 @layer base {
   body {
-    @apply bg-slate-800 text-white;
+    @apply bg-primary text-text-primary
   }
 }

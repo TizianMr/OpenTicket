@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 
 import { CreateTicket } from '../ticket/create-ticket/create-ticket';
+import { TicketTable } from '../ticket/ticket-table/ticket-table';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CreateTicket],
+  imports: [CreateTicket, TicketTable],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
