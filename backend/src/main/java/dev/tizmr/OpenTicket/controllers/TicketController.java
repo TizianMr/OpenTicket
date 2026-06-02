@@ -73,7 +73,5 @@ public class TicketController {
       tickets.getSize(),
       tickets.getNumber()
     );
-
-
   }
 }
