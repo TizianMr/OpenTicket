@@ -20,6 +20,6 @@ public class PagingResult<T> {
     this.totalPages = totalPages;
     this.totalElements = totalElements;
     this.size = size;
-    this.page = page + 1;
+    this.page = page;
   }
 }

@@ -10,7 +10,7 @@
   --color-highlight: #A78BFA;
   --color-success: #4ADE80;
   --color-warning: #FBBF24;
-  --color-error: #EF4444; 
+  --color-error: #EF4444;
   --color-text-primary: #FAFAFA;
   --color-text-secondary: #A1A1AA;
 }
@@ -19,4 +19,12 @@
   body {
     @apply bg-primary text-text-primary
   }
+}
+
+button {
+  @apply cursor-pointer
+}
+
+button:disabled {
+  @apply cursor-not-allowed opacity-50
 }

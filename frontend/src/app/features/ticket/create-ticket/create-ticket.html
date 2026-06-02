@@ -16,7 +16,7 @@
         <h1 id="create-ticket-title" class="text-xl font-bold">Create Ticket</h1>
         <button
           type="button"
-          class="cursor-pointer inline-flex h-8 w-8 items-center justify-center bg-transparent"
+          class="inline-flex h-8 w-8 items-center justify-center bg-transparent"
           aria-label="Close create ticket modal"
           (click)="closeModal()"
         >
@@ -72,14 +72,13 @@
         <div class="flex items-center justify-end gap-2 pt-2">
           <button
             type="button"
-            class="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-semibold hover:bg-primary/80"
+            class="rounded bg-primary px-4 py-2 text-sm font-semibold hover:bg-primary/80"
             (click)="closeModal()"
           >
             Cancel
           </button>
           <button
             type="submit"
-            [ngClass]="isCreating() ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'"
             class="rounded bg-accent px-4 py-2 w-18 text-sm flex justify-center font-semibold hover:bg-accent/80"
             [disabled]="isCreating()"
           >

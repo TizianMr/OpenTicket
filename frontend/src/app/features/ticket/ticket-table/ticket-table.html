@@ -1,6 +1,6 @@
 <table
   class="table-fixed w-full h-full border-2 bg-surface border-elevated rounded-md border-separate border-spacing-0">
-  <thead class=" text-left h-10 bg-primary">
+  <thead class="text-left h-10 bg-primary">
     <tr>
       @for (headerItem of headers; track $index) {
       <th class="first:rounded-tl-md last:rounded-tr-md first:pl-4">{{headerItem}}</th>
@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody class="content-evenly">
-    @for (ticket of tickets(); track ticket.id) {
+    @for (ticket of tableState().content; track ticket.id) {
     <tr class="last:*:border-b-0 h-10">
       <td class="border-b border-elevated pl-4">{{ticket.title}}</td>
       <td class="border-b border-elevated">{{ticket.status}}</td>
@@ -18,3 +18,96 @@
     }
   </tbody>
 </table>
+
+<div class="flex mt-2 w-full items-center justify-between">
+  <p class="text-sm text-muted-foreground">
+    Showing {{tableInfo().min}}-{{tableInfo().max}} of {{tableInfo().total}} tickets
+  </p>
+
+  <div class="flex gap-2">
+    <button
+      [disabled]="isFirstPage()"
+      (click)="onFirstPageClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button"
+      aria-label="Create new ticket">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-5">
+        <path
+          d="M18 17L13 12L18 7M11 17L6 12L11 7"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button
+      [disabled]="isFirstPage()"
+      (click)="onPageBackwardsClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button"
+      aria-label="Create new ticket">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-5">
+        <path
+          d="M15 18L9 12L15 6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button
+      [disabled]="isLastPage()"
+      (click)="onPageForwardClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button"
+      aria-label="Create new ticket">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-5">
+        <path
+          d="M9 18L15 12L9 6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button
+      [disabled]="isLastPage()"
+      (click)="onLastPageClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button"
+      aria-label="Create new ticket">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-5">
+        <path
+          d="M6 17L11 12L6 7M13 17L18 12L13 7"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>
