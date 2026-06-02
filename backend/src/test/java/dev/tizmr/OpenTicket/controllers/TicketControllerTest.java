@@ -75,29 +75,27 @@ class TicketControllerTest {
     Instant now = Instant.now();
     UUID ticketUUID = UUID.randomUUID();
 
-    Ticket mockTicket1 = new Ticket(ticketUUID, "Title", "Description", TicketStatus.OPEN, now, now);
-    Ticket mockTicket2 = new Ticket(UUID.randomUUID(), "Title 2", "Description 2", TicketStatus.OPEN, now, now);
-    TicketDto mockTicketDto = new TicketDto(ticketUUID, "Title", "Description", TicketStatus.OPEN, now, now);
+    Ticket mockTicket1 =
+        new Ticket(ticketUUID, "Title", "Description", TicketStatus.OPEN, now, now);
+    Ticket mockTicket2 =
+        new Ticket(UUID.randomUUID(), "Title 2", "Description 2", TicketStatus.OPEN, now, now);
+    TicketDto mockTicketDto =
+        new TicketDto(ticketUUID, "Title", "Description", TicketStatus.OPEN, now, now);
     List<Ticket> ticketList = List.of(mockTicket1, mockTicket2);
 
-    Page<Ticket> ticketPage = new PageImpl<>(
-      ticketList,
-      PageRequest.of(0, 25),
-      ticketList.size()
-    );
+    Page<Ticket> ticketPage = new PageImpl<>(ticketList, PageRequest.of(0, 25), ticketList.size());
 
     when(ticketService.listTickets(any(Pageable.class))).thenReturn(ticketPage);
     when(ticketMapper.toDto(mockTicket1)).thenReturn(mockTicketDto);
 
-    mockMvc.perform(get("/api/v1/tickets")
-        .param("page", "0")
-        .param("size", "25"))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.content", hasSize(ticketList.size())))
-      .andExpect(jsonPath("$.content[0].id").value(ticketUUID.toString()))
-      .andExpect(jsonPath("$.totalPages").value(1))
-      .andExpect(jsonPath("$.totalElements").value(ticketList.size()))
-      .andExpect(jsonPath("$.size").value(25))
-      .andExpect(jsonPath("$.page").value(1));
+    mockMvc
+        .perform(get("/api/v1/tickets").param("page", "0").param("size", "25"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(ticketList.size())))
+        .andExpect(jsonPath("$.content[0].id").value(ticketUUID.toString()))
+        .andExpect(jsonPath("$.totalPages").value(1))
+        .andExpect(jsonPath("$.totalElements").value(ticketList.size()))
+        .andExpect(jsonPath("$.size").value(25))
+        .andExpect(jsonPath("$.page").value(1));
   }
 }

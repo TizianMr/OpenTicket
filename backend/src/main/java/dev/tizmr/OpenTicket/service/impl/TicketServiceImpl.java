@@ -6,7 +6,6 @@ import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
 import dev.tizmr.OpenTicket.service.TicketService;
 import java.time.Instant;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
