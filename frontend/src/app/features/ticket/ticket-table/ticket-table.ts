@@ -1,12 +1,16 @@
 import { DatePipe } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 
+import { ChevronLeft } from '../../../common/icons/chevron-left';
+import { ChevronLeftDouble } from '../../../common/icons/chevron-left-double';
+import { ChevronRight } from '../../../common/icons/chevron-right';
+import { ChevronRightDouble } from '../../../common/icons/chevron-right-double';
 import { PagingResultTicketDto, TicketsService } from '../../../core/api-generated';
 import { CreateTicket } from '../create-ticket/create-ticket';
 
 @Component({
   selector: 'app-ticket-table',
-  imports: [DatePipe, CreateTicket],
+  imports: [DatePipe, CreateTicket, ChevronLeft, ChevronRight, ChevronRightDouble, ChevronLeftDouble],
   templateUrl: './ticket-table.html',
   styleUrl: './ticket-table.css',
 })

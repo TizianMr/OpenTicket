@@ -3,11 +3,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
+import { SpinnerIcon } from '../../../common/icons/spinner-icon';
 import { TicketsService } from '../../../core/api-generated';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SpinnerIcon],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
