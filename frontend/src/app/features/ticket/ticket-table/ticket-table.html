@@ -8,67 +8,17 @@
     </tr>
   </thead>
   <tbody class="content-evenly">
-    @if (hasError()) {
-      <tr>
-        <td
-          [attr.colspan]="headers.length"
-          class="text-center p-4">
-          <div class="flex flex-col items-center gap-2 p-12">
-            <img
-              src="img/error.svg"
-              alt="Error Illustration"
-              class="h-64"
-              aria-hidden="true" />
-            <h1 class="text-3xl font-semibold">Oops!</h1>
-            <p>An error occured while loading the tickets.</p>
-            <p>
-              Try
-              <span
-                ><button
-                  class="text-accent underline"
-                  (click)="onReloadPage()">
-                  reloading the page
-                </button></span
-              >
-              or contact an administrator.
-            </p>
-          </div>
-        </td>
-      </tr>
-    } @else if (tableState().totalElements === 0) {
-      <tr>
-        <td
-          [attr.colspan]="headers.length"
-          class="text-center p-4">
-          <div class="flex flex-col items-center gap-2 p-12">
-            <img
-              src="img/search.svg"
-              alt="Search Illustration"
-              class="h-44"
-              aria-hidden="true" />
-            <h1 class="text-3xl font-semibold">Nothing there!</h1>
-            <p>No tickets found.</p>
-            <button
-              class="text-accent underline"
-              (click)="onTicketCreate()">
-              Start by creating a ticket
-            </button>
-          </div>
-        </td>
-      </tr>
-    } @else {
-      @for (ticket of tableState().content; track ticket.id) {
-        <tr class="last:*:border-b-0 h-10">
-          <td class="border-b border-elevated pl-4">{{ ticket.title }}</td>
-          <td class="border-b border-elevated">{{ ticket.status }}</td>
-          <td class="border-b border-elevated">{{ ticket.createdAt | date: 'dd.MM.yyyy' }}</td>
-          <td class="border-b border-elevated">{{ ticket.updatedAt | date: 'dd.MM.yyyy' }}</td>
-        </tr>
-      }
-    }
+    @if (tableState().totalElements !== 0) {
+    <app-ticket-table-empty />
+    } @else { @for (ticket of tableState().content; track ticket.id) {
+    <tr class="last:*:border-b-0 h-10">
+      <td class="border-b border-elevated pl-4">{{ticket.title}}</td>
+      <td class="border-b border-elevated">{{ticket.status}}</td>
+      <td class="border-b border-elevated">{{ticket.createdAt | date:'dd.MM.yyyy'}}</td>
+      <td class="border-b border-elevated">{{ticket.updatedAt | date:'dd.MM.yyyy'}}</td>
+    </tr>
+    } }
   </tbody>
 </table>
 
 <app-ticket-table-pagination [paginationState]="tableState()" (pageChange)="onPageChange($event)" />
-
-<app-create-ticket [isOpen]="modalOpen()" (modalClose)="closeModal()" />
