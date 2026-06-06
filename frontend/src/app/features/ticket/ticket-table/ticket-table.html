@@ -3,39 +3,41 @@
   <thead class="text-left h-10 bg-primary">
     <tr>
       @for (headerItem of headers; track $index) {
-      <th class="first:rounded-tl-md last:rounded-tr-md first:pl-4">{{headerItem}}</th>
+        <th class="first:rounded-tl-md last:rounded-tr-md first:pl-4">{{ headerItem }}</th>
       }
     </tr>
   </thead>
   <tbody class="content-evenly">
     @if (tableState().totalElements === 0) {
-    <tr>
-      <td
-        [attr.colspan]="headers.length"
-        class="text-center p-4">
-        <div class="flex flex-col items-center gap-2 p-12">
-          <img
-            src="img/search.svg"
-            alt="Search Illustration"
-            class="h-40"
-            aria-hidden="true" />
-          <span>No tickets found</span>
-          <button
-            class="text-accent underline"
-            (click)="modalService.open('create-ticket')">
-            Start by creating a ticket
-          </button>
-        </div>
-      </td>
-    </tr>
-    } @else { @for (ticket of tableState().content; track ticket.id) {
-    <tr class="last:*:border-b-0 h-10">
-      <td class="border-b border-elevated pl-4">{{ticket.title}}</td>
-      <td class="border-b border-elevated">{{ticket.status}}</td>
-      <td class="border-b border-elevated">{{ticket.createdAt | date:'dd.MM.yyyy'}}</td>
-      <td class="border-b border-elevated">{{ticket.updatedAt | date:'dd.MM.yyyy'}}</td>
-    </tr>
-    } }
+      <tr>
+        <td
+          [attr.colspan]="headers.length"
+          class="text-center p-4">
+          <div class="flex flex-col items-center gap-2 p-12">
+            <img
+              src="img/search.svg"
+              alt="Search Illustration"
+              class="h-40"
+              aria-hidden="true" />
+            <span>No tickets found</span>
+            <button
+              class="text-accent underline"
+              (click)="modalService.open('create-ticket')">
+              Start by creating a ticket
+            </button>
+          </div>
+        </td>
+      </tr>
+    } @else {
+      @for (ticket of tableState().content; track ticket.id) {
+        <tr class="last:*:border-b-0 h-10">
+          <td class="border-b border-elevated pl-4">{{ ticket.title }}</td>
+          <td class="border-b border-elevated">{{ ticket.status }}</td>
+          <td class="border-b border-elevated">{{ ticket.createdAt | date: 'dd.MM.yyyy' }}</td>
+          <td class="border-b border-elevated">{{ ticket.updatedAt | date: 'dd.MM.yyyy' }}</td>
+        </tr>
+      }
+    }
   </tbody>
 </table>
 
