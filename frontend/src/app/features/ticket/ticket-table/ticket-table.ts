@@ -13,7 +13,9 @@ import { ModalService } from '../../../core/services/modal-service';
 })
 export class TicketTable implements OnInit {
   private ticketService = inject(TicketsService);
-  protected readonly modalService = inject(ModalService);
+  private modalService = inject(ModalService);
+
+  hasError = signal(false);
 
   protected readonly headers = ['Title', 'Status', 'Created at', 'Updated at'];
 
@@ -29,15 +31,25 @@ export class TicketTable implements OnInit {
     this.loadTickets(newPage);
   }
 
+  onReloadPage(): void {
+    window.location.reload();
+  }
+
+  onTicketCreate(): void {
+    this.modalService.open('create-ticket');
+  }
+
   ngOnInit(): void {
     this.loadTickets(this.tableState().page);
   }
 
   private loadTickets(page: PagingResultTicketDto['page']): void {
+    this.hasError.set(false);
     this.ticketService.listTickets(page, this.tableState().size).subscribe({
       next: response => {
         this.tableState.set(response);
       },
+      error: () => this.hasError.set(true),
     });
   }
 }
