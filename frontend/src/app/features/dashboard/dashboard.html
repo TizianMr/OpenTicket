@@ -1,11 +1,16 @@
 <div class="w-[85vw] m-auto flex flex-col">
-  <button class="bg-accent hover:bg-accent/80 font-bold py-2 px-4 my-5 rounded inline-flex items-center gap-1 self-end"
-    type="button" aria-label="Create new ticket" (click)="modalService.open('create-ticket')">
+  <button
+    class="bg-accent hover:bg-accent/80 font-bold py-2 px-4 my-5 rounded inline-flex items-center gap-1 self-end"
+    type="button"
+    aria-label="Create new ticket"
+    (click)="modalService.open('create-ticket')">
     <svg document-plus></svg>
     <span>Create ticket</span>
   </button>
 
-  <app-create-ticket [isOpen]="modalService.isOpen('create-ticket')" (modalClose)="modalService.close('create-ticket')"
+  <app-create-ticket
+    [isOpen]="modalService.isOpen('create-ticket')"
+    (modalClose)="modalService.close('create-ticket')"
     appModal="create-ticket" />
 
   <app-ticket-table />

@@ -1,22 +1,31 @@
-import { DatePipe } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 
+import { TicketCard } from './ticket-card/ticket-card';
+import { TicketTableEmpty } from './ticket-table-empty/ticket-table-empty';
+import { TicketTableError } from './ticket-table-error/ticket-table-error';
+import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
+import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
 import { PagingResultTicketDto, TicketsService } from '../../../core/api-generated';
-import { ModalService } from '../../../core/services/modal-service';
 
 // TODO: move?
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 15;
 
 @Component({
   selector: 'app-ticket-table',
-  imports: [DatePipe, TicketTablePagination],
+  imports: [
+    TicketTablePagination,
+    TicketTableHeader,
+    TicketCard,
+    TicketTableEmpty,
+    TicketTableError,
+    TicketTableLoading,
+  ],
   templateUrl: './ticket-table.html',
   styleUrl: './ticket-table.css',
 })
 export class TicketTable implements OnInit {
   private ticketService = inject(TicketsService);
-  private modalService = inject(ModalService);
 
   hasError = signal(false);
   isLoading = signal(false);
@@ -28,14 +37,6 @@ export class TicketTable implements OnInit {
 
   onPageChange(newPage: number): void {
     this.loadTickets(newPage);
-  }
-
-  onReloadPage(): void {
-    window.location.reload();
-  }
-
-  onTicketCreate(): void {
-    this.modalService.open('create-ticket');
   }
 
   ngOnInit(): void {
