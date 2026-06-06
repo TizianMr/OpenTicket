@@ -1,18 +1,19 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 
-import { TicketTableEmpty } from './ticket-table-empty/ticket-table-empty';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
 import { PagingResultTicketDto, TicketsService } from '../../../core/api-generated';
+import { ModalService } from '../../../core/services/modal-service';
 
 @Component({
   selector: 'app-ticket-table',
-  imports: [DatePipe, TicketTablePagination, TicketTableEmpty],
+  imports: [DatePipe, TicketTablePagination],
   templateUrl: './ticket-table.html',
   styleUrl: './ticket-table.css',
 })
 export class TicketTable implements OnInit {
   private ticketService = inject(TicketsService);
+  protected readonly modalService = inject(ModalService);
 
   protected readonly headers = ['Title', 'Status', 'Created at', 'Updated at'];
 
