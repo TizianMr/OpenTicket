@@ -30,7 +30,7 @@ export class TicketTable implements OnInit {
   hasError = signal(false);
   isLoading = signal(false);
 
-  protected readonly headers = ['Title', 'Status', 'Created at', 'Updated at'];
+  protected readonly headers = ['Status', 'Title', 'Created at', 'Updated at'];
 
   readonly tableState = signal<PagingResultTicketDto | undefined>(undefined);
   isEmpty = computed(() => this.tableState()?.totalElements === 0);
