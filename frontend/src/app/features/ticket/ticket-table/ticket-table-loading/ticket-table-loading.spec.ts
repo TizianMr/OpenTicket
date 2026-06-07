@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketTableLoading } from './ticket-table-loading';
 
-describe('TicketLoading', () => {
+describe('TicketTableLoading', () => {
   let component: TicketTableLoading;
   let fixture: ComponentFixture<TicketTableLoading>;
 

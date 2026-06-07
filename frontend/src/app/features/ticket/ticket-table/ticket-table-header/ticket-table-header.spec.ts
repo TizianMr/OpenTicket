@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketTableHeader } from './ticket-table-header';
 
-describe('TicketHeader', () => {
+describe('TicketTableHeader', () => {
   let component: TicketTableHeader;
   let fixture: ComponentFixture<TicketTableHeader>;
 

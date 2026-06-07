@@ -12,8 +12,8 @@ import { PagingResultTicketDto } from '../../../../core/api-generated';
   templateUrl: './ticket-table-pagination.html',
 })
 export class TicketTablePagination {
-  paginationState = input.required<Omit<PagingResultTicketDto, 'content'>>();
-  pageChange = output<number>();
+  readonly paginationState = input.required<Omit<PagingResultTicketDto, 'content'>>();
+  readonly pageChange = output<number>();
 
   readonly isLastPage = computed(() => this.paginationState().page === this.paginationState().totalPages - 1);
   readonly isFirstPage = computed(() => this.paginationState().page === 0);
