@@ -9,7 +9,7 @@ import { EnumTransformPipe } from '../../../../core/pipes/enum-transform-pipe';
   templateUrl: './ticket-status-badge.html',
 })
 export class TicketStatusBadge {
-  protected readonly status = input.required<TicketStatus>();
+  readonly status = input.required<TicketStatus>();
 
   getBadgeColorClasses(): string {
     switch (this.status()) {

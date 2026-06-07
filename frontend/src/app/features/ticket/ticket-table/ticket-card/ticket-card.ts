@@ -10,5 +10,5 @@ import { TicketStatusBadge } from '../ticket-status-badge/ticket-status-badge';
   templateUrl: './ticket-card.html',
 })
 export class TicketCard {
-  protected readonly ticket = input.required<TicketDto>();
+  readonly ticket = input.required<TicketDto>();
 }
