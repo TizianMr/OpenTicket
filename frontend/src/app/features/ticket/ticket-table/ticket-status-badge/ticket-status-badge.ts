@@ -7,10 +7,9 @@ import { EnumTransformPipe } from '../../../../core/pipes/enum-transform-pipe';
   selector: 'app-ticket-status-badge',
   imports: [EnumTransformPipe],
   templateUrl: './ticket-status-badge.html',
-  styleUrl: './ticket-status-badge.css',
 })
 export class TicketStatusBadge {
-  status = input.required<TicketStatus>();
+  protected readonly status = input.required<TicketStatus>();
 
   getBadgeColorClasses(): string {
     switch (this.status()) {

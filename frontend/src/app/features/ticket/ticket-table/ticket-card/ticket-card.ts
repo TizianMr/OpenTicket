@@ -8,8 +8,7 @@ import { TicketStatusBadge } from '../ticket-status-badge/ticket-status-badge';
   selector: 'app-ticket-card',
   imports: [DatePipe, TicketStatusBadge],
   templateUrl: './ticket-card.html',
-  styleUrl: './ticket-card.css',
 })
 export class TicketCard {
-  ticket = input.required<TicketDto>();
+  protected readonly ticket = input.required<TicketDto>();
 }

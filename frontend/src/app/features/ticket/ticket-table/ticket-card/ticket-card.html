@@ -1,6 +1,6 @@
 <div class="grid grid-cols-4 bg-surface border border-elevated rounded-md shadow-sm px-4 py-4">
   <div class="px-2"><app-ticket-status-badge [status]="ticket().status" /></div>
   <div class="px-2">{{ ticket().title }}</div>
-  <div class="px-2">{{ ticket().createdAt | date: 'dd.MM.yyyy' }}</div>
-  <div class="px-2">{{ ticket().updatedAt | date: 'dd.MM.yyyy' }}</div>
+  <div class="px-2">{{ ticket().createdAt | date }}</div>
+  <div class="px-2">{{ ticket().updatedAt | date }}</div>
 </div>

@@ -14,6 +14,11 @@ describe('ModalService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should initialize service with empty Sets', () => {
+    expect(service['registered']().size).toBe(0);
+    expect(service['opened']().size).toBe(0);
+  });
+
   it('should register modal', () => {
     service.register('create-ticket');
 
