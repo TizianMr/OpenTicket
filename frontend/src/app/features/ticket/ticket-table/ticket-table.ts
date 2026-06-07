@@ -8,7 +8,6 @@ import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading'
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
 import { PagingResultTicketDto, TicketsService } from '../../../core/api-generated';
 
-// TODO: move?
 const PAGE_SIZE = 15;
 
 @Component({
@@ -22,18 +21,16 @@ const PAGE_SIZE = 15;
     TicketTableLoading,
   ],
   templateUrl: './ticket-table.html',
-  styleUrl: './ticket-table.css',
 })
 export class TicketTable implements OnInit {
   private ticketService = inject(TicketsService);
 
-  hasError = signal(false);
-  isLoading = signal(false);
+  protected readonly hasError = signal(false);
+  protected readonly isLoading = signal(false);
+  protected readonly tableState = signal<PagingResultTicketDto | undefined>(undefined);
+  protected readonly isEmpty = computed(() => this.tableState()?.totalElements === 0);
 
   protected readonly headers = ['Status', 'Title', 'Created at', 'Updated at'];
-
-  readonly tableState = signal<PagingResultTicketDto | undefined>(undefined);
-  isEmpty = computed(() => this.tableState()?.totalElements === 0);
 
   onPageChange(newPage: number): void {
     this.loadTickets(newPage);

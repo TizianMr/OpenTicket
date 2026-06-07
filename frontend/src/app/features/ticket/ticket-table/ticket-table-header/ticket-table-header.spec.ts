@@ -12,6 +12,7 @@ describe('TicketTableHeader', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TicketTableHeader);
+    fixture.componentRef.setInput('headers', '[A, B, C]');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

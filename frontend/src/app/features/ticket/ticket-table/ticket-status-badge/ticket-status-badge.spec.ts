@@ -12,6 +12,7 @@ describe('TicketStatusBadge', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TicketStatusBadge);
+    fixture.componentRef.setInput('status', 'OPEN');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
