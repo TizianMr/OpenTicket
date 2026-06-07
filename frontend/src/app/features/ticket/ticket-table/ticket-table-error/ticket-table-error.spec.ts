@@ -19,4 +19,16 @@ describe('TicketError', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should reload when calling onReloadPage', () => {
+    const reloadSpy = vi.fn();
+
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { ...window.location, reload: reloadSpy },
+    });
+    component.onReloadPage();
+
+    expect(reloadSpy).toHaveBeenCalled();
+  });
 });
