@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -56,10 +58,7 @@ public class TicketController {
 
   @Operation(summary = "Get a list of tickets")
   @GetMapping
-  public PagingResult<TicketDto> listTickets(
-      @RequestParam(value = "page", defaultValue = "0") int page,
-      @RequestParam(value = "size", defaultValue = "25") int size) {
-    final Pageable pageable = PageRequest.of(page, size);
+  public PagingResult<TicketDto> listTickets(@ParameterObject Pageable pageable) {
     final Page<Ticket> tickets = ticketService.listTickets(pageable);
 
     final List<TicketDto> taskDtos = tickets.stream().map(ticketMapper::toDto).toList();
