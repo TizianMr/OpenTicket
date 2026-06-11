@@ -1,5 +1,7 @@
 package dev.tizmr.OpenTicket.service.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -15,6 +17,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @ExtendWith(MockitoExtension.class)
 class TicketServiceTest {
@@ -39,5 +44,14 @@ class TicketServiceTest {
     ticketService.createTicket(request);
 
     verify(ticketRepository).save(eq(expectedTicket));
+  }
+
+  @Test
+  void shouldThrowErrorOnInvalidSortField() {
+    Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "test"));
+
+    IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> ticketService.listTickets(pageable));
+
+    assertThat(thrown.getMessage()).contains("Invalid sort field: test");
   }
 }

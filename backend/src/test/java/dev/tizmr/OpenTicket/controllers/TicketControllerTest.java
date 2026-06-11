@@ -22,10 +22,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -89,7 +86,7 @@ class TicketControllerTest {
     when(ticketMapper.toDto(mockTicket1)).thenReturn(mockTicketDto);
 
     mockMvc
-        .perform(get("/api/v1/tickets").param("page", "0").param("size", "25"))
+        .perform(get("/api/v1/tickets").param("page", "0").param("size", "25").param("sort", "title,asc"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(ticketList.size())))
         .andExpect(jsonPath("$.content[0].id").value(ticketUUID.toString()))
