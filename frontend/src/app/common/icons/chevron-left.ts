@@ -13,12 +13,12 @@ import { Component, input } from '@angular/core';
     stroke-linejoin="round"
     fill="none" /> `,
   host: {
-    'class': 'size-5',
-    '[attr.viewBox]': 'viewBox()',
+    '[class]': 'size()',
+    '[attr.viewBox]': '"0 0 24 24"',
     '[attr.xmlns]': '"http://www.w3.org/2000/svg"',
     '[attr.fill]': '"none"',
   },
 })
 export class ChevronLeft {
-  readonly viewBox = input<string>('0 0 24 24');
+  readonly size = input<string>('size-5');
 }
