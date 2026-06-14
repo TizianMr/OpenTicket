@@ -93,9 +93,9 @@ class TicketControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(ticketList.size())))
         .andExpect(jsonPath("$.content[0].id").value(ticketUUID.toString()))
-        .andExpect(jsonPath("$.totalPages").value(1))
-        .andExpect(jsonPath("$.totalElements").value(ticketList.size()))
-        .andExpect(jsonPath("$.size").value(25))
-        .andExpect(jsonPath("$.page").value(1));
+        .andExpect(jsonPath("$.pageInfo.totalPages").value(1))
+        .andExpect(jsonPath("$.pageInfo.totalElements").value(ticketList.size()))
+        .andExpect(jsonPath("$.pageInfo.size").value(25))
+        .andExpect(jsonPath("$.pageInfo.page").value(0));
   }
 }

@@ -30,8 +30,8 @@ export class TicketTable {
 
   protected readonly headers = ['Status', 'Title', 'Created at', 'Updated at'];
 
-  protected page = signal(0);
-  protected ticketResource = rxResource({
+  page = signal(0);
+  ticketResource = rxResource({
     params: () => ({ page: this.page(), size: PAGE_SIZE }),
     stream: ({ params }) => this.ticketService.listTickets(params.page, params.size),
   });

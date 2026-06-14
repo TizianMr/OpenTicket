@@ -1,4 +1,3 @@
-// loading.service.ts
 import { Injectable, Signal } from '@angular/core';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, timer, of, map } from 'rxjs';

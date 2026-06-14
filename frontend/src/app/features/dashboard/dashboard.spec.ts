@@ -20,10 +20,7 @@ describe('Dashboard', () => {
     const mockTicketsService = {
       listTickets: vi.fn().mockReturnValue(
         of({
-          page: 0,
-          size: 10,
-          totalElements: 0,
-          totalPages: 0,
+          pageInfo: { page: 0, size: 10, totalElements: 0, totalPages: 0 },
           content: [],
         }),
       ),

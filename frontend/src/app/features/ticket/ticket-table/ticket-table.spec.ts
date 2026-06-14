@@ -12,10 +12,12 @@ describe('TicketTable', () => {
     const mockTicketsService = {
       listTickets: vi.fn().mockReturnValue(
         of({
-          page: 0,
-          size: 10,
-          totalElements: 0,
-          totalPages: 0,
+          pageInfo: {
+            page: 0,
+            size: 10,
+            totalElements: 0,
+            totalPages: 0,
+          },
           content: [],
         }),
       ),
@@ -33,5 +35,21 @@ describe('TicketTable', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should update page signal onPageChange', () => {
+    const signalSpy = vi.spyOn(component.page, 'set');
+
+    component.onPageChange(2);
+
+    expect(signalSpy).toHaveBeenCalledExactlyOnceWith(2);
+  });
+
+  it('should call refetch when calling reload', () => {
+    const resourceSpy = vi.spyOn(component.ticketResource, 'reload');
+
+    component.reload();
+
+    expect(resourceSpy).toHaveBeenCalledOnce();
   });
 });

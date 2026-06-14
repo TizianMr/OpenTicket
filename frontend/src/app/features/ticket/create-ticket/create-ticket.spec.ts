@@ -134,4 +134,18 @@ describe('CreateTicket', () => {
     expect(component.isCreating()).toBe(false);
     expect(closeModalSpy).toHaveBeenCalled();
   });
+
+  it('should emit submitted event after succesful ticket creation', () => {
+    const emitSpy = vi.spyOn(component.submitted, 'emit');
+
+    const subject = new Subject<TicketDto>();
+    mockTicketService.createTicket.mockReturnValue(subject.asObservable());
+
+    const mockForm = { invalid: false, value: {} } as unknown as NgForm;
+    component.submitTicket(mockForm);
+
+    subject.complete();
+
+    expect(emitSpy).toHaveBeenCalled();
+  });
 });
