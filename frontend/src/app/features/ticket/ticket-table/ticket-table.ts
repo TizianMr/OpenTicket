@@ -36,8 +36,10 @@ export class TicketTable {
     stream: ({ params }) => this.ticketService.listTickets(params.page, params.size),
   });
 
-  protected readonly isEmpty = computed(() => this.ticketResource.value()?.pageInfo.totalElements === 0);
   protected readonly isLoading = this.loadingService.delayedLoading(this.ticketResource.isLoading);
+  protected readonly isEmpty = computed(
+    () => this.ticketResource.status() === 'resolved' && this.ticketResource.value()?.pageInfo.totalElements === 0,
+  );
 
   onPageChange(newPage: number): void {
     this.page.set(newPage);
