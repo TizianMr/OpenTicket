@@ -8,6 +8,7 @@ import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
 import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
 import { TicketsService } from '../../../core/api-generated';
+import { LoadingService } from '../../../core/services/loading-service';
 
 const PAGE_SIZE = 15;
 
@@ -25,6 +26,7 @@ const PAGE_SIZE = 15;
 })
 export class TicketTable {
   private ticketService = inject(TicketsService);
+  private loadingService = inject(LoadingService);
 
   protected readonly headers = ['Status', 'Title', 'Created at', 'Updated at'];
 
@@ -35,6 +37,7 @@ export class TicketTable {
   });
 
   protected readonly isEmpty = computed(() => this.ticketResource.value()?.pageInfo.totalElements === 0);
+  protected readonly isLoading = this.loadingService.delayedLoading(this.ticketResource.isLoading);
 
   onPageChange(newPage: number): void {
     this.page.set(newPage);

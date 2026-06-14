@@ -3,7 +3,7 @@
     <app-ticket-table-header [headers]="headers" />
   </div>
 
-  @if (ticketResource.isLoading()) {
+  @if (isLoading()) {
     <app-ticket-table-loading />
   }
 
