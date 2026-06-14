@@ -44,4 +44,8 @@ export class TicketTable {
   onPageChange(newPage: number): void {
     this.page.set(newPage);
   }
+
+  reload(): void {
+    this.ticketResource.reload();
+  }
 }

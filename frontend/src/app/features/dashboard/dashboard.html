@@ -8,11 +8,12 @@
     <span>Create ticket</span>
   </button>
 
-  <app-ticket-table />
+  <app-ticket-table #ticketTable />
 
   <!-- Modals -->
   <app-create-ticket
     [isOpen]="modalService.isOpen('create-ticket')"
     (modalClose)="modalService.close('create-ticket')"
-    [appModal]="'create-ticket'" />
+    [appModal]="'create-ticket'"
+    (submitted)="ticketTable.reload()" />
 </div>

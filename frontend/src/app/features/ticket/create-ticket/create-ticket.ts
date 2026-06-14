@@ -17,6 +17,7 @@ export class CreateTicket {
   private ticketService = inject(TicketsService);
   isCreating = signal(false);
   errorMsg = signal<string | null>(null);
+  submitted = output<void>();
 
   readonly isOpen = input.required<boolean>();
   readonly modalClose = output<void>();
@@ -54,6 +55,7 @@ export class CreateTicket {
       complete: () => {
         this.isCreating.set(false);
         this.closeModal();
+        this.submitted.emit();
       },
     });
 
