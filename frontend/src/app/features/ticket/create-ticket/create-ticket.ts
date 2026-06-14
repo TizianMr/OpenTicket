@@ -3,11 +3,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
+import { SpinnerIcon } from '../../../common/icons/spinner-icon';
 import { TicketsService } from '../../../core/api-generated';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SpinnerIcon],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
@@ -16,6 +17,7 @@ export class CreateTicket {
   private ticketService = inject(TicketsService);
   isCreating = signal(false);
   errorMsg = signal<string | null>(null);
+  submitted = output<void>();
 
   readonly isOpen = input.required<boolean>();
   readonly modalClose = output<void>();
@@ -53,6 +55,7 @@ export class CreateTicket {
       complete: () => {
         this.isCreating.set(false);
         this.closeModal();
+        this.submitted.emit();
       },
     });
 

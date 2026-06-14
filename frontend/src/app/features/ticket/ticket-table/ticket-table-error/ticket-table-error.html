@@ -1,0 +1,20 @@
+<div class="flex flex-col items-center gap-2 p-12">
+  <img
+    src="img/error.svg"
+    alt="Error Illustration"
+    class="h-64"
+    aria-hidden="true" />
+  <h1 class="text-3xl font-semibold">Oops!</h1>
+  <p>An error occured while loading the tickets.</p>
+  <p>
+    Try
+    <span
+      ><button
+        class="text-accent underline"
+        (click)="onReloadPage()">
+        reloading the page
+      </button></span
+    >
+    or contact an administrator.
+  </p>
+</div>

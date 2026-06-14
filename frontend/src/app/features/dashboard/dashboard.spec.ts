@@ -1,14 +1,37 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { Dashboard } from './dashboard';
+import { TicketsService } from '../../core/api-generated';
+import { ModalService } from '../../core/services/modal-service';
 
 describe('Dashboard', () => {
   let component: Dashboard;
   let fixture: ComponentFixture<Dashboard>;
 
   beforeEach(async () => {
+    const mockModalService = {
+      open: vi.fn(),
+      isOpen: vi.fn(),
+      register: vi.fn(),
+      unregister: vi.fn(),
+    };
+
+    const mockTicketsService = {
+      listTickets: vi.fn().mockReturnValue(
+        of({
+          pageInfo: { page: 0, size: 10, totalElements: 0, totalPages: 0 },
+          content: [],
+        }),
+      ),
+    };
+
     await TestBed.configureTestingModule({
       imports: [Dashboard],
+      providers: [
+        { provide: ModalService, useValue: mockModalService },
+        { provide: TicketsService, useValue: mockTicketsService },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Dashboard);
@@ -18,19 +41,5 @@ describe('Dashboard', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should initialise modalOpen as false', () => {
-    expect(component.modalOpen()).toBe(false);
-  });
-
-  it('should set modalOpen to true when openModal is called', () => {
-    component.openModal();
-    expect(component.modalOpen()).toBe(true);
-  });
-
-  it('should set modalOpen to false when closeModal is called', () => {
-    component.closeModal();
-    expect(component.modalOpen()).toBe(false);
   });
 });

@@ -3,17 +3,13 @@ package dev.tizmr.OpenTicket.domain.entity;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "tickets")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Ticket {
 
   @Id

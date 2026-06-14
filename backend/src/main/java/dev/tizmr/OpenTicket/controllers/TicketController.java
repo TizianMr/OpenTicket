@@ -1,5 +1,6 @@
 package dev.tizmr.OpenTicket.controllers;
 
+import dev.tizmr.OpenTicket.domain.PagingResult;
 import dev.tizmr.OpenTicket.domain.dto.CreateTicketRequestDto;
 import dev.tizmr.OpenTicket.domain.dto.ErrorDto;
 import dev.tizmr.OpenTicket.domain.dto.TicketDto;
@@ -13,6 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +38,7 @@ public class TicketController {
 
   @Operation(summary = "Create a ticket")
   @ApiResponses({
-    @ApiResponse(
-        responseCode = "201",
-        description = "User created",
-        content =
-            @Content(
-                mediaType = "application/json",
-                schema = @Schema(implementation = TicketDto.class))),
+    @ApiResponse(responseCode = "201", description = "User created"),
     @ApiResponse(
         responseCode = "400",
         description = "Validation failed",
@@ -53,5 +52,23 @@ public class TicketController {
       @Valid @RequestBody CreateTicketRequestDto createTicketRequestDto) {
     final Ticket created = ticketService.createTicket(ticketMapper.fromDto(createTicketRequestDto));
     return new ResponseEntity<>(ticketMapper.toDto(created), HttpStatus.CREATED);
+  }
+
+  @Operation(summary = "Get a list of tickets")
+  @GetMapping
+  public PagingResult<TicketDto> listTickets(
+      @RequestParam(value = "page", defaultValue = "0") int page,
+      @RequestParam(value = "size", defaultValue = "25") int size) {
+    final Pageable pageable = PageRequest.of(page, size);
+    final Page<Ticket> tickets = ticketService.listTickets(pageable);
+
+    final List<TicketDto> taskDtos = tickets.stream().map(ticketMapper::toDto).toList();
+
+    return new PagingResult<>(
+        taskDtos,
+        tickets.getTotalPages(),
+        tickets.getTotalElements(),
+        tickets.getSize(),
+        tickets.getNumber());
   }
 }

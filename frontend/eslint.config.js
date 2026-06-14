@@ -38,7 +38,7 @@ module.exports = defineConfig([
         },
       ],
       "@typescript-eslint/naming-convention": [
-        "error",
+        "warn",
         {
           selector: "class",
           format: ["PascalCase"],

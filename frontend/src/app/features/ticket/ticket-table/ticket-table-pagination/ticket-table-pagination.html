@@ -1,0 +1,24 @@
+<div class="flex mt-2 w-full items-center justify-between">
+  <p class="text-sm text-muted-foreground">
+    Showing {{tableInfo().min}}-{{tableInfo().max}} of {{tableInfo().total}} tickets
+  </p>
+
+  <div class="flex gap-2">
+    <button [disabled]="isFirstPage()" (click)="onFirstPageClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2" type="button" aria-label="Jump to first page">
+      <svg chevron-left-double></svg>
+    </button>
+    <button [disabled]="isFirstPage()" (click)="onBackwardsClick()"
+      class="bg-surface hover:bg-surface/80 rounded-md p-2" type="button" aria-label="Jump to previous page">
+      <svg chevron-left></svg>
+    </button>
+    <button [disabled]="isLastPage()" (click)="onForwardClick()" class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button" aria-label="Jump to next page">
+      <svg chevron-right></svg>
+    </button>
+    <button [disabled]="isLastPage()" (click)="onLastPageClick()" class="bg-surface hover:bg-surface/80 rounded-md p-2"
+      type="button" aria-label="Jump to last page">
+      <svg chevron-right-double></svg>
+    </button>
+  </div>
+</div>

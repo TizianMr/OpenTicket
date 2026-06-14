@@ -1,8 +1,11 @@
+> [!CAUTION]
+> OpenTicket is still under development. Features, functionalities, and the user interface are subject to change as the project evolves.
+
 # OpenTicket
 
 OpenTicket is an open-source IT ticketing platform to create, manage and observe tickets.
 
-## Project goal
+<!-- ## Project goal -->
 
 <!-- 
 project goals: angular, spring boot, get familiar working with github (issues, workflows) -->
@@ -80,9 +83,12 @@ frontend
     ├── styles.css                  # Global styles
     ├── app 
     │   ├── app.ts                  # Root app component
+    │   ├── common
+    │   │   ├── icons               # Icon components
     │   ├── core
-    │   │   ├── api-generated       # Auto generated models and services                   
-    │   │   ├── interceptors        # Custom interceptor files
+    │   │   ├── api-generated       # Auto generated models and services 
+    │   │   ├── directives          # Custom directives
+    │   │   ├── pipes               # Cutom pipes                  
     │   │   └── services            # Custom service files
     │   └── features                # Application features
     ├── models                      # Types and interfaces

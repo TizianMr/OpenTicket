@@ -12,7 +12,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BASE_PATH_DEFAULT, CLIENT_CONTEXT_TOKEN_DEFAULT } from "../tokens";
 import { HttpParamsBuilder } from "../utils/http-params-builder";
-import { CreateTicketRequestDto, RequestOptions, TicketDto } from "../models";
+import { RequestOptions, PagingResultTicketDto, CreateTicketRequestDto, TicketDto } from "../models";
 
 @Injectable({ providedIn: "root" })
 export class TicketsService {
@@ -23,6 +23,39 @@ export class TicketsService {
     private createContextWithClientId(existingContext?: HttpContext): HttpContext {
         const context = existingContext || new HttpContext();
         return context.set(this.clientContextToken, 'default');
+    }
+
+    listTickets(page?: number, size?: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<PagingResultTicketDto>;
+    listTickets(page?: number, size?: number, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<PagingResultTicketDto>>;
+    listTickets(page?: number, size?: number, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<PagingResultTicketDto>>;
+    listTickets(page?: number, size?: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+        const url = `${this.basePath}/api/v1/tickets`;
+
+        let params = new HttpParams();
+        if (page != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, page, 'page');
+        }
+        if (size != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, size, 'size');
+        }
+
+        let headers: HttpHeaders;
+        if (options?.headers instanceof HttpHeaders) {
+            headers = options.headers;
+        } else {
+            headers = new HttpHeaders(options?.headers);
+        }
+
+        const requestOptions: any = {
+            observe: observe as any,
+            headers,
+            params,
+            reportProgress: options?.reportProgress,
+            withCredentials: options?.withCredentials,
+            context: this.createContextWithClientId(options?.context)
+        };
+
+        return this.httpClient.get(url, requestOptions);
     }
 
     createTicket(createTicketRequestDto: CreateTicketRequestDto, observe?: 'body', options?: RequestOptions<'json'>): Observable<TicketDto>;
