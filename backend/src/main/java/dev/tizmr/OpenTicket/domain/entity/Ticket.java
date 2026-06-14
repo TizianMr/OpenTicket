@@ -3,7 +3,6 @@ package dev.tizmr.OpenTicket.domain.entity;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
-
 import lombok.*;
 
 @Entity
