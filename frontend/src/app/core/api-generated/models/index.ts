@@ -33,12 +33,16 @@ export enum TicketStatus {
     CLOSED = "CLOSED"
 }
 
-export interface PagingResultTicketDto {
-    content: Array<TicketDto>;
+export interface PageInfo {
     totalPages: number;
     totalElements: number;
     size: number;
     page: number;
+}
+
+export interface PagingResultTicketDto {
+    content: Array<TicketDto>;
+    pageInfo: PageInfo;
 }
 
 /** Request Options for Angular HttpClient requests */

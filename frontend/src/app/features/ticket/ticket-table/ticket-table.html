@@ -3,7 +3,7 @@
     <app-ticket-table-header [headers]="headers" />
   </div>
 
-  @if (isLoading()) {
+  @if (ticketResource.isLoading()) {
     <app-ticket-table-loading />
   }
 
@@ -11,21 +11,23 @@
     <app-ticket-table-empty />
   }
 
-  @if (hasError()) {
+  @if (ticketResource.error()) {
     <app-ticket-table-error />
   }
 
   <div class="flex-1 overflow-y-auto">
-    @for (ticket of tableState()?.content; track ticket.id) {
+    @for (ticket of ticketResource.value()?.content; track ticket.id) {
       <div class="my-2">
         <app-ticket-card [ticket]="ticket" />
       </div>
     }
   </div>
 
-  <div class="mt-auto">
-    <app-ticket-table-pagination
-      [paginationState]="tableState()!"
-      (pageChange)="onPageChange($event)" />
-  </div>
+  @if (ticketResource.value()?.pageInfo) {
+    <div class="mt-auto">
+      <app-ticket-table-pagination
+        [paginationState]="ticketResource.value()!.pageInfo"
+        (pageChange)="onPageChange($event)" />
+    </div>
+  }
 </div>

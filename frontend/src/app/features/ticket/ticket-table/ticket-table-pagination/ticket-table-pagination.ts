@@ -4,7 +4,7 @@ import { ChevronLeft } from '../../../../common/icons/chevron-left';
 import { ChevronLeftDouble } from '../../../../common/icons/chevron-left-double';
 import { ChevronRight } from '../../../../common/icons/chevron-right';
 import { ChevronRightDouble } from '../../../../common/icons/chevron-right-double';
-import { PagingResultTicketDto } from '../../../../core/api-generated';
+import { PageInfo } from '../../../../core/api-generated';
 
 @Component({
   selector: 'app-ticket-table-pagination',
@@ -12,7 +12,7 @@ import { PagingResultTicketDto } from '../../../../core/api-generated';
   templateUrl: './ticket-table-pagination.html',
 })
 export class TicketTablePagination {
-  readonly paginationState = input.required<Omit<PagingResultTicketDto, 'content'>>();
+  readonly paginationState = input.required<PageInfo>();
   readonly pageChange = output<number>();
 
   readonly isLastPage = computed(() => this.paginationState().page === this.paginationState().totalPages - 1);
