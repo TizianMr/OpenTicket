@@ -19,12 +19,12 @@ import { Component, input } from '@angular/core';
   `,
   host: {
     'class': 'animate-spin',
-    '[class]': '"size-" + size()',
+    '[class]': 'size()',
     '[attr.viewBox]': '"0 0 24 24"',
     '[attr.xmlns]': '"http://www.w3.org/2000/svg"',
     '[attr.fill]': '"none"',
   },
 })
 export class SpinnerIcon {
-  readonly size = input<string>('5');
+  readonly size = input<string>('size-5');
 }
