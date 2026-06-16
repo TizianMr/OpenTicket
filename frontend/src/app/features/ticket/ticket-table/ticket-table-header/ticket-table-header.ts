@@ -13,9 +13,9 @@ export class TicketTableHeader {
   readonly headers = input.required<THead[]>();
   protected readonly sortDirection = SortDirection;
 
-  sort = output<[string, SortDirection]>();
+  sort = output<{ key: string; direction: SortDirection }>();
 
   onSort(headerKey: string, sortDirection: SortDirection): void {
-    this.sort.emit([headerKey, sortDirection]);
+    this.sort.emit({ key: headerKey, direction: sortDirection });
   }
 }

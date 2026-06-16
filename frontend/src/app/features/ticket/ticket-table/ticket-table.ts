@@ -50,8 +50,8 @@ export class TicketTable {
     return activeSort ? [`${activeSort.key},${activeSort.sortDirection}`] : [''];
   });
 
-  protected page = signal(0);
-  protected ticketResource = rxResource({
+  page = signal(0);
+  ticketResource = rxResource({
     params: () => ({ page: this.page(), size: PAGE_SIZE, sort: this.sortParams() }),
     stream: ({ params }) => this.ticketService.listTickets(params.page, params.size, params.sort),
   });

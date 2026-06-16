@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketTableHeader } from './ticket-table-header';
+import { SortDirection } from '../ticket-table';
 
 describe('TicketTableHeader', () => {
   let component: TicketTableHeader;
@@ -19,5 +20,13 @@ describe('TicketTableHeader', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit sort event with correct params', () => {
+    const emitSpy = vi.spyOn(component.sort, 'emit');
+
+    component.onSort('A', SortDirection.ASC);
+
+    expect(emitSpy).toHaveBeenCalledWith({ key: 'A', direction: SortDirection.ASC });
   });
 });
