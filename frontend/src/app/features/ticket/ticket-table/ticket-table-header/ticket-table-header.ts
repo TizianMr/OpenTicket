@@ -3,7 +3,7 @@ import { Component, input, output } from '@angular/core';
 import { SortAscending } from '../../../../common/icons/sort-asc';
 import { SortDescending } from '../../../../common/icons/sort-desc';
 import { SortIdle } from '../../../../common/icons/sort-idle';
-import { SortDirection, THead } from '../ticket-table';
+import { THead, SortDirection } from '../ticket-table.types';
 
 @Component({
   selector: 'app-ticket-table-header',

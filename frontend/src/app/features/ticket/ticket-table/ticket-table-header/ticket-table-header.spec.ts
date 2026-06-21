@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TicketTableHeader } from './ticket-table-header';
-import { SortDirection } from '../ticket-table';
+import { SortDirection } from '../ticket-table.types';
 
 describe('TicketTableHeader', () => {
   let component: TicketTableHeader;

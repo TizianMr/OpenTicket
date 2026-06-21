@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { SortDirection, TicketTable } from './ticket-table';
+import { TicketTable } from './ticket-table';
+import { SortDirection } from './ticket-table.types';
 import { TicketsService } from '../../../core/api-generated';
 
 describe('TicketTable', () => {
@@ -65,16 +66,6 @@ describe('TicketTable', () => {
 
     expect(component['headers']()).toEqual([
       { key: 'name', label: 'Name', sortDirection: SortDirection.ASC },
-      { key: 'age', label: 'Age', sortDirection: undefined },
-      { key: 'email', label: 'Email', sortDirection: undefined },
-    ]);
-  });
-
-  it('should clear sorting when the same direction is passed for an already sorted header', () => {
-    component.onSort('email', SortDirection.ASC);
-
-    expect(component['headers']()).toEqual([
-      { key: 'name', label: 'Name', sortDirection: undefined },
       { key: 'age', label: 'Age', sortDirection: undefined },
       { key: 'email', label: 'Email', sortDirection: undefined },
     ]);

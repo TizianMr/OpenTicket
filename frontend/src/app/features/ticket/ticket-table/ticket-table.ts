@@ -7,20 +7,11 @@ import { TicketTableError } from './ticket-table-error/ticket-table-error';
 import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
 import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
+import { THead, SortDirection } from './ticket-table.types';
 import { TicketsService } from '../../../core/api-generated';
 import { LoadingService } from '../../../core/services/loading-service';
 
 const PAGE_SIZE = 15;
-
-export enum SortDirection {
-  ASC = 'asc',
-  DESC = 'desc',
-}
-export interface THead {
-  readonly label: string;
-  readonly key: string;
-  sortDirection?: SortDirection;
-}
 
 @Component({
   selector: 'app-ticket-table',
