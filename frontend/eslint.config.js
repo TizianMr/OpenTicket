@@ -7,7 +7,7 @@ const importPlugin = require("eslint-plugin-import-x");
 const prettierPlugin = require("eslint-plugin-prettier");
 
 module.exports = defineConfig([
-  globalIgnores(["**/api-generated/**"]),
+  globalIgnores(["**/api-generated/**", "src/app/common/icons"]),
   {
     files: ["**/*.ts"],
     extends: [

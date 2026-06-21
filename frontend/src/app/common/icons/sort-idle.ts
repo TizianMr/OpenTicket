@@ -1,7 +1,6 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg[sort-idle]',
   template: `
     <svg:g
@@ -17,13 +16,13 @@ import { Component, input } from '@angular/core';
     </svg:g>
   `,
   host: {
-    'class': 'size-5',
-    '[attr.viewBox]': 'viewBox()',
+    '[class]': 'size()',
+    '[attr.viewBox]': '"0 0 24 24"',
     '[attr.xmlns]': '"http://www.w3.org/2000/svg"',
     'aria-hidden': 'true',
     'role': 'img',
   },
 })
 export class SortIdle {
-  readonly viewBox = input<string>('0 0 24 25');
+  readonly size = input<string>('size-5');
 }

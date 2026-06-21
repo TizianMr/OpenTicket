@@ -1,5 +1,3 @@
-/* eslint-disable @angular-eslint/component-selector */
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, input } from '@angular/core';
 
 @Component({
