@@ -86,7 +86,11 @@ class TicketControllerTest {
     when(ticketMapper.toDto(mockTicket1)).thenReturn(mockTicketDto);
 
     mockMvc
-        .perform(get("/api/v1/tickets").param("page", "0").param("size", "25").param("sort", "title,asc"))
+        .perform(
+            get("/api/v1/tickets")
+                .param("page", "0")
+                .param("size", "25")
+                .param("sort", "title,asc"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(ticketList.size())))
         .andExpect(jsonPath("$.content[0].id").value(ticketUUID.toString()))

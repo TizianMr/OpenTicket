@@ -50,7 +50,8 @@ class TicketServiceTest {
   void shouldThrowErrorOnInvalidSortField() {
     Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "test"));
 
-    IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> ticketService.listTickets(pageable));
+    IllegalArgumentException thrown =
+        assertThrows(IllegalArgumentException.class, () -> ticketService.listTickets(pageable));
 
     assertThat(thrown.getMessage()).contains("Invalid sort field: test");
   }
