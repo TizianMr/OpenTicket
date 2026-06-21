@@ -25,10 +25,10 @@ export class TicketsService {
         return context.set(this.clientContextToken, 'default');
     }
 
-    listTickets(page?: number, size?: number, observe?: 'body', options?: RequestOptions<'json'>): Observable<PagingResultTicketDto>;
-    listTickets(page?: number, size?: number, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<PagingResultTicketDto>>;
-    listTickets(page?: number, size?: number, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<PagingResultTicketDto>>;
-    listTickets(page?: number, size?: number, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
+    listTickets(page?: number, size?: number, sort?: Array<string>, observe?: 'body', options?: RequestOptions<'json'>): Observable<PagingResultTicketDto>;
+    listTickets(page?: number, size?: number, sort?: Array<string>, observe?: 'response', options?: RequestOptions<'json'>): Observable<HttpResponse<PagingResultTicketDto>>;
+    listTickets(page?: number, size?: number, sort?: Array<string>, observe?: 'events', options?: RequestOptions<'json'>): Observable<HttpEvent<PagingResultTicketDto>>;
+    listTickets(page?: number, size?: number, sort?: Array<string>, observe?: 'body' | 'events' | 'response', options?: RequestOptions<'arraybuffer' | 'blob' | 'json' | 'text'>): Observable<any> {
         const url = `${this.basePath}/api/v1/tickets`;
 
         let params = new HttpParams();
@@ -37,6 +37,9 @@ export class TicketsService {
         }
         if (size != null) {
             params = HttpParamsBuilder.addToHttpParams(params, size, 'size');
+        }
+        if (sort != null) {
+            params = HttpParamsBuilder.addToHttpParams(params, sort, 'sort');
         }
 
         let headers: HttpHeaders;

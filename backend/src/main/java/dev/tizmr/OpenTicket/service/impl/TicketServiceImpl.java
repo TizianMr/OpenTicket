@@ -7,6 +7,7 @@ import dev.tizmr.OpenTicket.repository.TicketRepository;
 import dev.tizmr.OpenTicket.service.TicketService;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,21 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public Page<Ticket> listTickets(Pageable pageable) {
+    final Set<String> ALLOWED_SORT_FIELDS = Set.of("status", "title", "createdAt", "updatedAt");
+
+    pageable
+        .getSort()
+        .forEach(
+            order -> {
+              if (!ALLOWED_SORT_FIELDS.contains(order.getProperty())) {
+                throw new IllegalArgumentException(
+                    "Invalid sort field: "
+                        + order.getProperty()
+                        + ". Allowed values are: "
+                        + ALLOWED_SORT_FIELDS);
+              }
+            });
+
     return ticketRepository.findAll(pageable);
   }
 }

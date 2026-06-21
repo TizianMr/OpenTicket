@@ -7,6 +7,7 @@ import { TicketTableError } from './ticket-table-error/ticket-table-error';
 import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
 import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
+import { THead, SortDirection } from './ticket-table.types';
 import { TicketsService } from '../../../core/api-generated';
 import { LoadingService } from '../../../core/services/loading-service';
 
@@ -28,12 +29,22 @@ export class TicketTable {
   private ticketService = inject(TicketsService);
   private loadingService = inject(LoadingService);
 
-  protected readonly headers = ['Status', 'Title', 'Created at', 'Updated at'];
+  protected readonly headers = signal<THead[]>([
+    { label: 'Status', key: 'status', sortDirection: undefined },
+    { label: 'Title', key: 'title', sortDirection: undefined },
+    { label: 'Created at', key: 'createdAt', sortDirection: undefined },
+    { label: 'Updated at', key: 'updatedAt', sortDirection: undefined },
+  ]);
+
+  private sortParams = computed(() => {
+    const activeSort = this.headers().find(header => header.sortDirection !== undefined);
+    return activeSort ? [`${activeSort.key},${activeSort.sortDirection}`] : [''];
+  });
 
   page = signal(0);
   ticketResource = rxResource({
-    params: () => ({ page: this.page(), size: PAGE_SIZE }),
-    stream: ({ params }) => this.ticketService.listTickets(params.page, params.size),
+    params: () => ({ page: this.page(), size: PAGE_SIZE, sort: this.sortParams() }),
+    stream: ({ params }) => this.ticketService.listTickets(params.page, params.size, params.sort),
   });
 
   protected readonly isLoading = this.loadingService.delayedLoading(this.ticketResource.isLoading);
@@ -43,6 +54,17 @@ export class TicketTable {
 
   onPageChange(newPage: number): void {
     this.page.set(newPage);
+  }
+
+  onSort(headerKey: string, sortDirection: SortDirection | undefined): void {
+    this.headers.update(headers => {
+      return headers.map(h => {
+        if (h.key === headerKey) {
+          return { ...h, sortDirection };
+        }
+        return { ...h, sortDirection: undefined };
+      });
+    });
   }
 
   reload(): void {
