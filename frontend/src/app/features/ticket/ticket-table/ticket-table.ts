@@ -65,10 +65,10 @@ export class TicketTable {
     this.page.set(newPage);
   }
 
-  onSort(headerKey: string, sortDirection: SortDirection): void {
+  onSort(headerKey: string, sortDirection: SortDirection | undefined): void {
     this.headers.update(headers => {
       return headers.map(h => {
-        if (h.key === headerKey && h.sortDirection !== sortDirection) {
+        if (h.key === headerKey) {
           return { ...h, sortDirection };
         }
         return { ...h, sortDirection: undefined };
