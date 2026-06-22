@@ -6,11 +6,11 @@
   <div class="flex gap-2">
     <div class="min-w-16 relative">
       <select
-        class="w-full text-sm border bg-primary border-elevated rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-accent hover:border-accent shadow-sm focus:shadow-md appearance-none cursor-pointer">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
+        class="w-full text-sm border bg-primary border-elevated rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-accent hover:border-accent shadow-sm focus:shadow-md appearance-none cursor-pointer"
+        (change)="onSizeChange($event)">
+        @for (option of pageSizeOptions; track $index) {
+          <option [value]="option">{{ option }}</option>
+        }
       </select>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor"
         class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">

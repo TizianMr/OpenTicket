@@ -27,7 +27,8 @@
     <div class="mt-auto">
       <app-ticket-table-pagination
         [paginationState]="ticketResource.value()!.pageInfo"
-        (pageChange)="onPageChange($event)" />
+        (pageChange)="onPageChange($event)"
+        (sizeChange)="onSizeChange($event)" />
     </div>
   }
 </div>
