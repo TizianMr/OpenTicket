@@ -71,8 +71,7 @@ describe('TicketTablePagination', () => {
 
     component.onForwardClick();
 
-    expect(emitSpy).toHaveBeenCalledWith(paginationState.page + 1);
-    expect(emitSpy).toHaveBeenCalledOnce();
+    expect(emitSpy).toHaveBeenCalledExactlyOnceWith(paginationState.page + 1);
   });
 
   it('should emit correct pageChange event onBackwardsClick', () => {
@@ -80,8 +79,7 @@ describe('TicketTablePagination', () => {
 
     component.onBackwardsClick();
 
-    expect(emitSpy).toHaveBeenCalledWith(paginationState.page - 1);
-    expect(emitSpy).toHaveBeenCalledOnce();
+    expect(emitSpy).toHaveBeenCalledExactlyOnceWith(paginationState.page - 1);
   });
 
   it('should emit correct pageChange event onFirstPageClick', () => {
@@ -89,8 +87,7 @@ describe('TicketTablePagination', () => {
 
     component.onFirstPageClick();
 
-    expect(emitSpy).toHaveBeenCalledWith(0);
-    expect(emitSpy).toHaveBeenCalledOnce();
+    expect(emitSpy).toHaveBeenCalledExactlyOnceWith(0);
   });
 
   it('should emit correct pageChange event onLastPageClick', () => {
@@ -98,7 +95,14 @@ describe('TicketTablePagination', () => {
 
     component.onLastPageClick();
 
-    expect(emitSpy).toHaveBeenCalledWith(paginationState.totalPages - 1);
-    expect(emitSpy).toHaveBeenCalledOnce();
+    expect(emitSpy).toHaveBeenCalledExactlyOnceWith(paginationState.totalPages - 1);
+  });
+
+  it('should emit correct sizeChange event onSizeChange', () => {
+    const emitSpy = vi.spyOn(component.sizeChange, 'emit');
+
+    component.onSizeChange({ target: { value: 50 } } as unknown as Event);
+
+    expect(emitSpy).toHaveBeenCalledExactlyOnceWith(50);
   });
 });
