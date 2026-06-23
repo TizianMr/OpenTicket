@@ -4,12 +4,13 @@ import { ChevronLeft } from '../../../../common/icons/chevron-left';
 import { ChevronLeftDouble } from '../../../../common/icons/chevron-left-double';
 import { ChevronRight } from '../../../../common/icons/chevron-right';
 import { ChevronRightDouble } from '../../../../common/icons/chevron-right-double';
+import { SortUpdown } from '../../../../common/icons/sort-updown';
 import { PageInfo } from '../../../../core/api-generated';
 import { PageSize } from '../ticket-table.types';
 
 @Component({
   selector: 'app-ticket-table-pagination',
-  imports: [ChevronLeftDouble, ChevronLeft, ChevronRight, ChevronRightDouble],
+  imports: [ChevronLeftDouble, ChevronLeft, ChevronRight, ChevronRightDouble, SortUpdown],
   templateUrl: './ticket-table-pagination.html',
 })
 export class TicketTablePagination {
