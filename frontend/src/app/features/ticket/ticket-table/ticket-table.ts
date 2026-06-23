@@ -7,11 +7,9 @@ import { TicketTableError } from './ticket-table-error/ticket-table-error';
 import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
 import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
-import { THead, SortDirection } from './ticket-table.types';
+import { THead, SortDirection, PageSize } from './ticket-table.types';
 import { TicketsService } from '../../../core/api-generated';
 import { LoadingService } from '../../../core/services/loading-service';
-
-const PAGE_SIZE = 15;
 
 @Component({
   selector: 'app-ticket-table',
@@ -41,9 +39,9 @@ export class TicketTable {
     return activeSort ? [`${activeSort.key},${activeSort.sortDirection}`] : [''];
   });
 
-  page = signal(0);
+  tableState = signal<{ page: number; size: PageSize }>({ page: 0, size: 25 });
   ticketResource = rxResource({
-    params: () => ({ page: this.page(), size: PAGE_SIZE, sort: this.sortParams() }),
+    params: () => ({ page: this.tableState().page, size: this.tableState().size, sort: this.sortParams() }),
     stream: ({ params }) => this.ticketService.listTickets(params.page, params.size, params.sort),
   });
 
@@ -53,7 +51,11 @@ export class TicketTable {
   );
 
   onPageChange(newPage: number): void {
-    this.page.set(newPage);
+    this.tableState.update(state => ({ ...state, page: newPage }));
+  }
+
+  onSizeChange(newSize: PageSize): void {
+    this.tableState.set({ page: 0, size: newSize });
   }
 
   onSort(headerKey: string, sortDirection: SortDirection | undefined): void {

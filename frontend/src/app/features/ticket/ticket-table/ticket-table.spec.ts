@@ -45,12 +45,16 @@ describe('TicketTable', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update page signal onPageChange', () => {
-    const signalSpy = vi.spyOn(component.page, 'set');
-
+  it('should update tableState onPageChange', () => {
     component.onPageChange(2);
 
-    expect(signalSpy).toHaveBeenCalledExactlyOnceWith(2);
+    expect(component.tableState()).toEqual({ page: 2, size: component.tableState().size });
+  });
+
+  it('should update tableState onSizeChange', () => {
+    component.onSizeChange(25);
+
+    expect(component.tableState()).toEqual({ page: 0, size: 25 });
   });
 
   it('should call refetch when calling reload', () => {

@@ -4,16 +4,21 @@ import { ChevronLeft } from '../../../../common/icons/chevron-left';
 import { ChevronLeftDouble } from '../../../../common/icons/chevron-left-double';
 import { ChevronRight } from '../../../../common/icons/chevron-right';
 import { ChevronRightDouble } from '../../../../common/icons/chevron-right-double';
+import { SortUpdown } from '../../../../common/icons/sort-updown';
 import { PageInfo } from '../../../../core/api-generated';
+import { PageSize } from '../ticket-table.types';
 
 @Component({
   selector: 'app-ticket-table-pagination',
-  imports: [ChevronLeftDouble, ChevronLeft, ChevronRight, ChevronRightDouble],
+  imports: [ChevronLeftDouble, ChevronLeft, ChevronRight, ChevronRightDouble, SortUpdown],
   templateUrl: './ticket-table-pagination.html',
 })
 export class TicketTablePagination {
   readonly paginationState = input.required<PageInfo>();
   readonly pageChange = output<number>();
+  readonly sizeChange = output<PageSize>();
+
+  protected readonly pageSizeOptions: PageSize[] = [5, 10, 25, 50] as const;
 
   readonly isLastPage = computed(() => this.paginationState().page === this.paginationState().totalPages - 1);
   readonly isFirstPage = computed(() => this.paginationState().page === 0);
@@ -40,5 +45,10 @@ export class TicketTablePagination {
 
   onLastPageClick(): void {
     this.pageChange.emit(this.paginationState().totalPages - 1);
+  }
+
+  onSizeChange(event: Event): void {
+    const size = (event.target as HTMLSelectElement).value;
+    this.sizeChange.emit(Number(size) as PageSize);
   }
 }

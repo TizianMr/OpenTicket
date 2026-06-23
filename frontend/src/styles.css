@@ -21,7 +21,8 @@
   }
 }
 
-button {
+button,
+select {
   @apply cursor-pointer
 }
 
