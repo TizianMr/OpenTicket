@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import dev.tizmr.OpenTicket.domain.CreateTicketRequest;
+import dev.tizmr.OpenTicket.domain.dto.TicketStatisticDto;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
@@ -22,7 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @ExtendWith(MockitoExtension.class)
-class TicketServiceTest {
+class TicketServiceImplTest {
 
   @Mock private TicketRepository ticketRepository;
 
@@ -54,5 +55,22 @@ class TicketServiceTest {
         assertThrows(IllegalArgumentException.class, () -> ticketService.listTickets(pageable));
 
     assertThat(thrown.getMessage()).contains("Invalid sort field: test");
+  }
+
+  @Test
+  void shouldCallCountForTicketStatusAndReturnCorrectObject() {
+    when(ticketRepository.countByStatus(TicketStatus.OPEN)).thenReturn(5L);
+    when(ticketRepository.countByStatus(TicketStatus.CLOSED)).thenReturn(10L);
+    when(ticketRepository.countByStatus(TicketStatus.IN_PROGRESS)).thenReturn(3L);
+
+    TicketStatisticDto statisticDto = ticketService.getStatistics();
+
+    verify(ticketRepository).countByStatus(TicketStatus.OPEN);
+    verify(ticketRepository).countByStatus(TicketStatus.CLOSED);
+    verify(ticketRepository).countByStatus(TicketStatus.IN_PROGRESS);
+
+    assertThat(statisticDto.numOfOpenTickets()).isEqualTo(5L);
+    assertThat(statisticDto.numOfInProgressTickets()).isEqualTo(3L);
+    assertThat(statisticDto.numOfClosedTickets()).isEqualTo(10L);
   }
 }
