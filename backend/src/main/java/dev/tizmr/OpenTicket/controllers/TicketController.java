@@ -4,6 +4,7 @@ import dev.tizmr.OpenTicket.domain.PagingResult;
 import dev.tizmr.OpenTicket.domain.dto.CreateTicketRequestDto;
 import dev.tizmr.OpenTicket.domain.dto.ErrorDto;
 import dev.tizmr.OpenTicket.domain.dto.TicketDto;
+import dev.tizmr.OpenTicket.domain.dto.TicketStatisticDto;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.mapper.TicketMapper;
 import dev.tizmr.OpenTicket.service.TicketService;
@@ -67,5 +68,11 @@ public class TicketController {
         tickets.getTotalElements(),
         tickets.getSize(),
         tickets.getNumber());
+  }
+
+  @Operation(summary = "Get overall ticket statistics")
+  @GetMapping("/statistics")
+  public ResponseEntity<TicketStatisticDto> getStatistics() {
+    return new ResponseEntity<>(ticketService.getStatistics(), HttpStatus.OK);
   }
 }
