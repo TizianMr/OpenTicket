@@ -4,11 +4,13 @@ import dev.tizmr.OpenTicket.domain.CreateTicketRequest;
 import dev.tizmr.OpenTicket.domain.dto.TicketStatisticDto;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
+import dev.tizmr.OpenTicket.exception.TicketNotFoundException;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
 import dev.tizmr.OpenTicket.service.TicketService;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Set;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,11 @@ public class TicketServiceImpl implements TicketService {
         new Ticket(null, request.title(), request.description(), TicketStatus.OPEN, now, now);
 
     return ticketRepository.save(ticket);
+  }
+
+  @Override
+  public Ticket getTicketById(UUID id) {
+    return ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException(id));
   }
 
   @Override

@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -70,9 +71,27 @@ public class TicketController {
         tickets.getNumber());
   }
 
+  @Operation(summary = "Get single ticket by id")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Found ticket by id"),
+    @ApiResponse(
+        responseCode = "404",
+        description = "Ticket not found",
+        content =
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorDto.class)))
+  })
+  @GetMapping("/{id}")
+  public ResponseEntity<TicketDto> getTicketById(@PathVariable("id") UUID id) {
+    final Ticket ticket = ticketService.getTicketById(id);
+
+    return ResponseEntity.ok(ticketMapper.toDto(ticket));
+  }
+
   @Operation(summary = "Get overall ticket statistics")
   @GetMapping("/statistics")
   public ResponseEntity<TicketStatisticDto> getStatistics() {
-    return new ResponseEntity<>(ticketService.getStatistics(), HttpStatus.OK);
+    return ResponseEntity.ok(ticketService.getStatistics());
   }
 }
