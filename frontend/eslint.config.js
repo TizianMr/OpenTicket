@@ -1,15 +1,15 @@
 // @ts-check
-const eslint = require("@eslint/js");
-const { defineConfig, globalIgnores } = require("eslint/config");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
-const importPlugin = require("eslint-plugin-import-x");
-const prettierPlugin = require("eslint-plugin-prettier");
+const eslint = require('@eslint/js');
+const { defineConfig, globalIgnores } = require('eslint/config');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const importPlugin = require('eslint-plugin-import-x');
+const prettierPlugin = require('eslint-plugin-prettier');
 
 module.exports = defineConfig([
-  globalIgnores(["**/api-generated/**", "src/app/common/icons"]),
+  globalIgnores(['**/api-generated/**', 'src/app/common/icons']),
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,
@@ -21,58 +21,58 @@ module.exports = defineConfig([
     plugins: { prettier: prettierPlugin },
     processor: angular.processInlineTemplates,
     rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: "app",
-          style: "camelCase",
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
         },
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: "app",
-          style: "kebab-case",
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
         },
       ],
-      "@typescript-eslint/naming-convention": [
-        "warn",
+      '@typescript-eslint/naming-convention': [
+        'warn',
         {
-          selector: "class",
-          format: ["PascalCase"],
+          selector: 'class',
+          format: ['PascalCase'],
         },
         {
-          selector: "function",
-          format: ["camelCase"],
+          selector: 'function',
+          format: ['camelCase'],
         },
         {
-          selector: "method",
-          format: ["camelCase"],
+          selector: 'method',
+          format: ['camelCase'],
         },
         {
-          selector: "variable",
-          format: ["camelCase"],
+          selector: 'variable',
+          format: ['camelCase'],
         },
         {
-          selector: "property",
-          format: ["camelCase"],
-          leadingUnderscore: "allow",
+          selector: 'property',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
         },
         {
-          selector: "variable",
-          modifiers: ["const"],
-          format: ["UPPER_CASE", "camelCase"],
+          selector: 'variable',
+          modifiers: ['const'],
+          format: ['UPPER_CASE', 'camelCase'],
         },
         {
-          selector: "objectLiteralProperty",
-          format: ["camelCase"],
-          leadingUnderscore: "allow",
+          selector: 'objectLiteralProperty',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
         },
       ],
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
         {
           allowExpressions: true,
         },
@@ -85,21 +85,32 @@ module.exports = defineConfig([
           'newlines-between': 'always',
         },
       ],
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-inferrable-types": "off",
-      "no-console": "error",
-      "prettier/prettier": "error",
+      'no-restricted-imports': [
+        'warn',
+        {
+          patterns: [
+            {
+              group: ['**/common/icons/*.icon'],
+              message: 'Import icons via IconComponent (`app-icon`), not the icon class directly.',
+            },
+          ],
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-inferrable-types': 'off',
+      'no-console': 'error',
+      'prettier/prettier': 'error',
     },
   },
   {
-    files: ["**/*.html"],
+    files: ['**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {
-      "@angular-eslint/template/alt-text": "error",
-      "@angular-eslint/template/elements-content": "error",
-      "@angular-eslint/template/label-has-associated-control": "error",
-      "@angular-eslint/template/table-scope": "error",
-      "@angular-eslint/template/valid-aria": "error",
+      '@angular-eslint/template/alt-text': 'error',
+      '@angular-eslint/template/elements-content': 'error',
+      '@angular-eslint/template/label-has-associated-control': 'error',
+      '@angular-eslint/template/table-scope': 'error',
+      '@angular-eslint/template/valid-aria': 'error',
     },
   },
 ]);

@@ -13,13 +13,13 @@ import { Component, input } from "@angular/core";
     />
   `,
   host: {
-    'class': 'size-7',
-    '[attr.viewBox]': 'viewBox()',
+    '[class]': 'size()',
+    '[attr.viewBox]': '"0 0 24 24"',
     '[attr.xmlns]': '"http://www.w3.org/2000/svg"',
     'aria-hidden': 'true',
     'role': 'img',
   },
 })
 export class CircleHalf {
-  readonly viewBox = input<string>('0 0 24 24');
+  readonly size = input<string>('size-5');
 }

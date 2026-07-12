@@ -10,13 +10,13 @@
           (click)="onSort(header.key)">
           @switch (header.sortDirection) {
             @case (sortDirection.ASC) {
-              <svg sort-ascending></svg>
+              <app-icon name="sort-asc" />
             }
             @case (sortDirection.DESC) {
-              <svg sort-descending></svg>
+              <app-icon name="sort-desc" />
             }
             @default {
-              <svg sort-idle></svg>
+              <app-icon name="sort-idle" />
             }
           }
         </button>
