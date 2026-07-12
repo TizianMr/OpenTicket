@@ -87,7 +87,7 @@
           class="rounded bg-accent px-4 py-2 w-18 text-sm flex justify-center font-semibold hover:bg-accent/80"
           [disabled]="isCreating()">
           @if (isCreating()) {
-          <svg spinner-icon></svg>
+            <app-icon name="spinner-icon" />
           } @else { Save }
         </button>
       </div>

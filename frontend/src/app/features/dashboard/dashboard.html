@@ -1,19 +1,32 @@
-<div class="w-[85vw] m-auto flex flex-col">
+<div class="w-[85vw] h-screen m-auto flex flex-col">
+  <div class="flex flex-1 justify-around items-center">
+    @for (statisticItem of statistics(); track statisticItem.title) {
+      <app-ticket-statistic
+        [title]="statisticItem.title"
+        [icon]="statisticItem.icon"
+        [number]="statisticItem.amount" />
+    }
+  </div>
+
   <button
     class="bg-accent hover:bg-accent/80 font-bold py-2 px-4 my-5 rounded inline-flex items-center gap-1 self-end"
     type="button"
     aria-label="Create new ticket"
     (click)="modalService.open('create-ticket')">
-    <svg document-plus></svg>
+    <app-icon name="document-plus" />
     <span>Create ticket</span>
   </button>
 
-  <app-ticket-table #ticketTable />
-
-  <!-- Modals -->
-  <app-create-ticket
-    [isOpen]="modalService.isOpen('create-ticket')"
-    (modalClose)="modalService.close('create-ticket')"
-    [appModal]="'create-ticket'"
-    (submitted)="ticketTable.reload()" />
+  <div class="flex-4 flex min-h-0">
+    <app-ticket-table
+      #ticketTable
+      class="flex flex-col flex-1 min-h-0 w-full mb-4" />
+  </div>
 </div>
+
+<!-- Modals -->
+<app-create-ticket
+  [isOpen]="modalService.isOpen('create-ticket')"
+  (modalClose)="modalService.close('create-ticket')"
+  [appModal]="'create-ticket'"
+  (submitted)="ticketTable.reload()" />

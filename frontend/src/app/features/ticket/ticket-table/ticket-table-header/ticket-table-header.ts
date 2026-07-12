@@ -1,14 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
-import { SortAscending } from '../../../../common/icons/sort-asc';
-import { SortDescending } from '../../../../common/icons/sort-desc';
-import { SortIdle } from '../../../../common/icons/sort-idle';
+import { Icon } from '../../../../common/icons/icon';
 import { THead, SortDirection } from '../ticket-table.types';
 
 @Component({
   selector: 'app-ticket-table-header',
   templateUrl: './ticket-table-header.html',
-  imports: [SortAscending, SortDescending, SortIdle],
+  imports: [Icon],
 })
 export class TicketTableHeader {
   readonly headers = input.required<THead[]>();

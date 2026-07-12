@@ -45,6 +45,12 @@ export interface PagingResultTicketDto {
     pageInfo: PageInfo;
 }
 
+export interface TicketStatisticDto {
+    numOfOpenTickets: number;
+    numOfInProgressTickets: number;
+    numOfClosedTickets: number;
+}
+
 /** Request Options for Angular HttpClient requests */
 export interface RequestOptions<TResponseType extends 'arraybuffer' | 'blob' | 'json' | 'text'> {
     headers?: HttpHeaders;

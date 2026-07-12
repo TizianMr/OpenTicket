@@ -1,6 +1,7 @@
 package dev.tizmr.OpenTicket.service.impl;
 
 import dev.tizmr.OpenTicket.domain.CreateTicketRequest;
+import dev.tizmr.OpenTicket.domain.dto.TicketStatisticDto;
 import dev.tizmr.OpenTicket.domain.entity.Ticket;
 import dev.tizmr.OpenTicket.domain.entity.TicketStatus;
 import dev.tizmr.OpenTicket.repository.TicketRepository;
@@ -51,5 +52,15 @@ public class TicketServiceImpl implements TicketService {
             });
 
     return ticketRepository.findAll(pageable);
+  }
+
+  // TODO: take caching into account for future improvements
+  @Override
+  public TicketStatisticDto getStatistics() {
+    final long open = ticketRepository.countByStatus(TicketStatus.OPEN);
+    final long inProgress = ticketRepository.countByStatus(TicketStatus.IN_PROGRESS);
+    final long closed = ticketRepository.countByStatus(TicketStatus.CLOSED);
+
+    return new TicketStatisticDto(open, inProgress, closed);
   }
 }

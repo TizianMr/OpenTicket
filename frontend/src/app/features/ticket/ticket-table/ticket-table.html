@@ -1,34 +1,34 @@
-<div class="h-[80vh] flex flex-col">
-  <div class="mb-4">
-    <app-ticket-table-header [headers]="headers()" (sort)="onSort($event.key, $event.direction)" />
-  </div>
+<div class="mb-4">
+  <app-ticket-table-header
+    [headers]="headers()"
+    (sort)="onSort($event.key, $event.direction)" />
+</div>
 
-  @if (isLoading()) {
-    <app-ticket-table-loading />
-  }
+@if (isLoading()) {
+  <app-ticket-table-loading />
+}
 
-  @if (isEmpty()) {
-    <app-ticket-table-empty />
-  }
+@if (isEmpty()) {
+  <app-ticket-table-empty />
+}
 
-  @if (ticketResource.error()) {
-    <app-ticket-table-error />
-  }
+@if (ticketResource.error()) {
+  <app-ticket-table-error />
+}
 
-  <div class="flex-1 overflow-y-auto">
-    @for (ticket of ticketResource.value()?.content; track ticket.id) {
-      <div class="my-2">
-        <app-ticket-card [ticket]="ticket" />
-      </div>
-    }
-  </div>
-
-  @if (ticketResource.value()?.pageInfo) {
-    <div class="mt-auto">
-      <app-ticket-table-pagination
-        [paginationState]="ticketResource.value()!.pageInfo"
-        (pageChange)="onPageChange($event)"
-        (sizeChange)="onSizeChange($event)" />
+<div class="overflow-y-auto">
+  @for (ticket of ticketResource.value()?.content; track ticket.id) {
+    <div class="my-2">
+      <app-ticket-card [ticket]="ticket" />
     </div>
   }
 </div>
+
+@if (ticketResource.value()?.pageInfo) {
+  <div class="mt-auto">
+    <app-ticket-table-pagination
+      [paginationState]="ticketResource.value()!.pageInfo"
+      (pageChange)="onPageChange($event)"
+      (sizeChange)="onSizeChange($event)" />
+  </div>
+}

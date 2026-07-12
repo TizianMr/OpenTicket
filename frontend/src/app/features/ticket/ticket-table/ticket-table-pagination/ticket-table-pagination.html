@@ -12,23 +12,23 @@
           <option [selected]="option === paginationState().size" [value]="option">{{ option }}</option>
         }
       </select>
-      <svg class="ml-1 absolute top-2.5 right-2.5" sort-updown></svg>
+      <app-icon class="ml-1 absolute top-2.5 right-2.5" name="sort-updown" />
     </div>
 
     <button [disabled]="isFirstPage()" (click)="onFirstPageClick()"
       class="bg-surface hover:bg-surface/80 rounded-md p-2" type="button" aria-label="Jump to first page">
-      <svg chevron-left-double></svg>
+      <app-icon name="chevron-left-double" />
     </button>
     <button [disabled]="isFirstPage()" (click)="onBackwardsClick()"
       class="bg-surface hover:bg-surface/80 rounded-md p-2" type="button" aria-label="Jump to previous page">
-      <svg chevron-left></svg>
+      <app-icon name="chevron-left" />
     </button>
     <button [disabled]="isLastPage()" (click)="onForwardClick()" class="bg-surface hover:bg-surface/80 rounded-md p-2"
       type="button" aria-label="Jump to next page">
-      <svg chevron-right></svg>
+      <app-icon name="chevron-right" />
     </button>
     <button [disabled]="isLastPage()" (click)="onLastPageClick()" class="bg-surface hover:bg-surface/80 rounded-md p-2"
       type="button" aria-label="Jump to last page">
-      <svg chevron-right-double></svg>
+      <app-icon name="chevron-right-double" />
     </button>
   </div>
