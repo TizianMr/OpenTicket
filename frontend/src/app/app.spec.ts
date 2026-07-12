@@ -15,6 +15,13 @@ describe('App', () => {
         content: [],
       }),
     ),
+    getStatistics: vi.fn().mockReturnValue(
+      of({
+        numOfOpenTickets: 0,
+        numOfInProgressTickets: 0,
+        numOfClosedTickets: 0,
+      }),
+    ),
   };
 
   beforeEach(async () => {

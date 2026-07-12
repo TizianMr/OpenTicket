@@ -24,6 +24,13 @@ describe('Dashboard', () => {
           content: [],
         }),
       ),
+      getStatistics: vi.fn().mockReturnValue(
+        of({
+          numOfOpenTickets: 0,
+          numOfInProgressTickets: 0,
+          numOfClosedTickets: 0,
+        }),
+      ),
     };
 
     await TestBed.configureTestingModule({

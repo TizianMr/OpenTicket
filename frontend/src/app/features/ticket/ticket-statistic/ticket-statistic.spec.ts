@@ -12,6 +12,9 @@ describe('TicketStatistic', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TicketStatistic);
+    fixture.componentRef.setInput('icon', 'circle-half');
+    fixture.componentRef.setInput('title', 'Unit test');
+    fixture.componentRef.setInput('number', 0);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

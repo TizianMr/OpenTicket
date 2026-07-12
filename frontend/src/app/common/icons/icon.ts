@@ -4,7 +4,7 @@ import { ICON_REGISTRY, IconName } from './icon-registry';
 
 @Component({
   selector: 'app-icon',
-  template: `<ng-container *ngComponentOutlet="component()" />`,
+  template: `<ng-container [ngComponentOutlet]="component()" />`,
   imports: [NgComponentOutlet]
 })
 export class Icon {
