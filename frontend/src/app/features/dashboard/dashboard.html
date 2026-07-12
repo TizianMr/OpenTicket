@@ -1,18 +1,11 @@
 <div class="w-[85vw] h-screen m-auto flex flex-col">
   <div class="flex flex-1 justify-around items-center">
-    <app-ticket-statistic
-      title="Open Tickets"
-      icon="circle-half"
-      [number]="12" />
-    <app-ticket-statistic
-      title="Tickets in progress"
-      icon="in-progress"
-      [number]="12" />
-
-    <app-ticket-statistic
-      title="Closed Tickets"
-      icon="circle-check"
-      [number]="12" />
+    @for (statisticItem of statistics(); track statisticItem.title) {
+      <app-ticket-statistic
+        [title]="statisticItem.title"
+        [icon]="statisticItem.icon"
+        [number]="statisticItem.amount" />
+    }
   </div>
 
   <button
@@ -25,7 +18,9 @@
   </button>
 
   <div class="flex-4 flex min-h-0">
-    <app-ticket-table #ticketTable class="flex flex-col flex-1 min-h-0 w-full mb-4" />
+    <app-ticket-table
+      #ticketTable
+      class="flex flex-col flex-1 min-h-0 w-full mb-4" />
   </div>
 </div>
 
