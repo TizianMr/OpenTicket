@@ -1,17 +1,15 @@
 import { Component, inject } from '@angular/core';
 
-import { CircleCheck } from '../../common/icons/circle-check';
-import { CircleHalf } from '../../common/icons/circle-half';
-import { DocumentPlus } from '../../common/icons/document-plus';
-import { InProgress } from '../../common/icons/in-progress';
+import { Icon } from '../../common/icons/icon';
 import { ModalDirective } from '../../core/directives/modal-directive';
 import { ModalService } from '../../core/services/modal-service';
 import { CreateTicket } from '../ticket/create-ticket/create-ticket';
+import { TicketStatistic } from '../ticket/ticket-statistic/ticket-statistic';
 import { TicketTable } from '../ticket/ticket-table/ticket-table';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CreateTicket, TicketTable, DocumentPlus, ModalDirective, InProgress, CircleCheck, CircleHalf],
+  imports: [CreateTicket, TicketTable, ModalDirective, TicketStatistic, Icon],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

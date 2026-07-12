@@ -1,34 +1,18 @@
-<div class="w-[85vw] m-auto flex flex-col">
-  <div class="flex mt-3 justify-around mb-10">
-    <div class="bg-surface rounded-md flex flex-col py-5 px-9 gap-3">
-      <div class="flex items-center gap-2">
-        <div class="rounded-full h-10 w-10 flex justify-center items-center bg-primary">
-          <svg circle-half></svg>
-        </div>
-        <p class="text-lg font-bold">Open Tickets</p>
-      </div>
-      <p class="text-3xl text-end">12</p>
-    </div>
+<div class="w-[85vw] h-screen m-auto flex flex-col">
+  <div class="flex flex-1 justify-around items-center">
+    <app-ticket-statistic
+      title="Open Tickets"
+      icon="circle-half"
+      [number]="12" />
+    <app-ticket-statistic
+      title="Tickets in progress"
+      icon="in-progress"
+      [number]="12" />
 
-    <div class="bg-surface rounded-md flex flex-col py-5 px-9 gap-3">
-      <div class="flex items-center gap-2">
-        <div class="rounded-full h-10 w-10 flex justify-center items-center bg-primary">
-          <svg in-progress></svg>
-        </div>
-        <p class="text-lg font-bold">Tickets in progress</p>
-      </div>
-      <p class="text-3xl text-end">12</p>
-    </div>
-
-    <div class="bg-surface rounded-md flex flex-col py-5 px-9 gap-3">
-      <div class="flex items-center gap-2">
-        <div class="rounded-full h-10 w-10 flex justify-center items-center bg-primary">
-          <svg circle-check></svg>
-        </div>
-        <p class="text-lg font-bold">Closed Tickets</p>
-      </div>
-      <p class="text-3xl text-end">12</p>
-    </div>
+    <app-ticket-statistic
+      title="Closed Tickets"
+      icon="circle-check"
+      [number]="12" />
   </div>
 
   <button
@@ -36,16 +20,18 @@
     type="button"
     aria-label="Create new ticket"
     (click)="modalService.open('create-ticket')">
-    <svg document-plus></svg>
+    <app-icon name="document-plus" />
     <span>Create ticket</span>
   </button>
 
-  <app-ticket-table #ticketTable />
-
-  <!-- Modals -->
-  <app-create-ticket
-    [isOpen]="modalService.isOpen('create-ticket')"
-    (modalClose)="modalService.close('create-ticket')"
-    [appModal]="'create-ticket'"
-    (submitted)="ticketTable.reload()" />
+  <div class="flex-4 flex min-h-0">
+    <app-ticket-table #ticketTable class="flex flex-col flex-1 min-h-0 w-full mb-4" />
+  </div>
 </div>
+
+<!-- Modals -->
+<app-create-ticket
+  [isOpen]="modalService.isOpen('create-ticket')"
+  (modalClose)="modalService.close('create-ticket')"
+  [appModal]="'create-ticket'"
+  (submitted)="ticketTable.reload()" />
