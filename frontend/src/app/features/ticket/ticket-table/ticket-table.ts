@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 import { TicketCard } from './ticket-card/ticket-card';
@@ -26,6 +26,8 @@ import { LoadingService } from '../../../core/services/loading-service';
 export class TicketTable {
   private ticketService = inject(TicketsService);
   private loadingService = inject(LoadingService);
+
+  protected readonly ticketSelect = output<string>();
 
   protected readonly headers = signal<THead[]>([
     { label: 'Status', key: 'status', sortDirection: undefined },
@@ -71,5 +73,9 @@ export class TicketTable {
 
   reload(): void {
     this.ticketResource.reload();
+  }
+
+  onTicketSelect(ticketId: string): void {
+    this.ticketSelect.emit(ticketId);
   }
 }

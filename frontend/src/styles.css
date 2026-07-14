@@ -29,3 +29,7 @@ select {
 button:disabled {
   @apply cursor-not-allowed opacity-50
 }
+
+div[role="dialog"] {
+  @apply fixed inset-0 z-50 bg-primary/75 p-4
+}

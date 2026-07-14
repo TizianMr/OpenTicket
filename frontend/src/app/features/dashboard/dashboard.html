@@ -20,13 +20,18 @@
   <div class="flex-4 flex min-h-0">
     <app-ticket-table
       #ticketTable
+      (ticketSelect)="onTicketSelect($event)"
       class="flex flex-col flex-1 min-h-0 w-full mb-4" />
   </div>
 </div>
 
+@if (selectedTicketId(); as ticketId) {
+  <app-ticket-details [ticketId]="ticketId" (detailsClose)="onTicketDeselect()" />
+}
+
 <!-- Modals -->
 <app-create-ticket
+  [appModal]="'create-ticket'"
   [isOpen]="modalService.isOpen('create-ticket')"
   (modalClose)="modalService.close('create-ticket')"
-  [appModal]="'create-ticket'"
   (submitted)="ticketTable.reload()" />
