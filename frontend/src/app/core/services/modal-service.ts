@@ -1,11 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 
-import { ModalId } from './modal-constants';
+import { ModalDataMap, ModalId } from './modal-constants';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
   private readonly opened = signal<Set<ModalId>>(new Set());
   private readonly registered = signal<Set<ModalId>>(new Set());
+  private readonly data = signal<Map<ModalId, unknown>>(new Map());
 
   register(id: ModalId): void {
     if (this.registered().has(id)) {
@@ -20,10 +21,17 @@ export class ModalService {
       next.delete(id);
       return next;
     });
+
+    this.data.update(m => {
+      const next = new Map(m);
+      next.delete(id);
+      return next;
+    });
   }
 
-  open(id: ModalId): void {
+  open<K extends ModalId>(id: K, data?: ModalDataMap[K]): void {
     this.assertRegistered(id);
+    this.data.update(m => new Map(m).set(id, data));
     this.opened.update(s => new Set(s).add(id));
   }
 
@@ -38,6 +46,10 @@ export class ModalService {
 
   isOpen(id: ModalId): boolean {
     return this.opened().has(id);
+  }
+
+  getData<K extends ModalId>(id: K): ModalDataMap[K] | null {
+    return this.data().get(id) as ModalDataMap[K] | null;
   }
 
   private assertRegistered(id: ModalId): void {

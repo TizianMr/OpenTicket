@@ -1,42 +1,29 @@
-<div
-  class="flex justify-center"
-  role="dialog"
-  aria-modal="true"
-  (click)="onOverlayClick($event)"
-  (keydown)="onOverlayClick($event)"
-  animate.enter="enter-animation">
-  <div class="rounded-xl bg-surface p-9 shadow-2xl ring-2 ring-primary/70 w-[30vw] h-auto max-w-2xl m-auto">
-    <div class="flex justify-between w-full">
-      <app-ticket-status-badge [status]="ticket().status" />
-      <div>
-        <button
-          type="button"
-          class="inline-flex h-8 w-8 items-center justify-center bg-transparent hover:bg-primary rounded-sm transition duration-300 ease"
-          aria-label="Close ticket details"
-          (click)="handleClose()">
-          ✕
-        </button>
-      </div>
-    </div>
+<app-modal modalId="ticket-details">
+  @if (ticket()) {
+    <app-modal-header>
+      <app-ticket-status-badge [status]="ticket()!.status" />
+    </app-modal-header>
+  }
 
-    <h1 class="text-3xl">{{ ticket().title }}</h1>
+  <app-modal-content>
+    <h1 class="text-3xl">{{ ticket()?.title }}</h1>
 
-    <div class="py-5 flex gap-1.5">
+    <div class="py-5 flex gap-3">
       <div class="flex-3">
         <h2 class="font-bold text-lg pb-1">Description</h2>
-        <p>{{ ticket().description }}</p>
+        <p>{{ ticket()?.description }}</p>
       </div>
 
       <div class="flex-1 [&>*:first-child]:pb-3">
         <div>
           <h2 class="font-bold">Created at:</h2>
-          <p>{{ ticket().createdAt | date }}</p>
+          <p>{{ ticket()?.createdAt | date }}</p>
         </div>
         <div>
           <h2 class="font-bold">Updated at:</h2>
-          <p>{{ ticket().updatedAt | date }}</p>
+          <p>{{ ticket()?.updatedAt | date }}</p>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </app-modal-content>
+</app-modal>

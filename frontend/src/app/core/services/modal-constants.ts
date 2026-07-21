@@ -1,5 +1,8 @@
-export const MODAL_IDS = {
-  createTicket: 'create-ticket',
-} as const;
+import { TicketDto } from '../api-generated';
 
-export type ModalId = (typeof MODAL_IDS)[keyof typeof MODAL_IDS];
+export interface ModalDataMap {
+  'create-ticket': null;
+  'ticket-details': { ticket: TicketDto };
+}
+
+export type ModalId = keyof ModalDataMap;

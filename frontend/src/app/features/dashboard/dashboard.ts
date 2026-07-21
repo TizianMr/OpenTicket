@@ -3,7 +3,6 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Icon } from '../../common/icons/icon';
 import { IconName } from '../../common/icons/icon-registry';
 import { TicketDto, TicketsService, TicketStatisticDto } from '../../core/api-generated';
-import { ModalDirective } from '../../core/directives/modal-directive';
 import { ModalService } from '../../core/services/modal-service';
 import { CreateTicket } from '../ticket/create-ticket/create-ticket';
 import { TicketDetails } from '../ticket/ticket-details/ticket-details';
@@ -18,7 +17,7 @@ interface StatisticItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CreateTicket, TicketTable, ModalDirective, TicketStatistic, Icon, TicketDetails],
+  imports: [CreateTicket, TicketTable, TicketStatistic, Icon, TicketDetails],
   templateUrl: './dashboard.html',
 })
 export class Dashboard implements OnInit {
@@ -26,7 +25,6 @@ export class Dashboard implements OnInit {
   private readonly ticketsService = inject(TicketsService);
   protected readonly modalService = inject(ModalService);
 
-  protected readonly selectedTicket = signal<TicketDto | null>(null);
   private readonly statConfig: { title: string; icon: IconName; key: keyof TicketStatisticDto }[] = [
     { title: 'Open tickets', icon: 'circle-half', key: 'numOfOpenTickets' },
     { title: 'Tickets in progress', icon: 'in-progress', key: 'numOfInProgressTickets' },
@@ -36,11 +34,7 @@ export class Dashboard implements OnInit {
   statistics = signal<StatisticItem[]>(this.statConfig.map(({ title, icon }) => ({ title, icon, amount: 0 })));
 
   onTicketSelect(ticket: TicketDto): void {
-    this.selectedTicket.set(ticket);
-  }
-
-  onTicketDeselect(): void {
-    this.selectedTicket.set(null);
+    this.modalService.open('ticket-details', { ticket });
   }
 
   ngOnInit(): void {

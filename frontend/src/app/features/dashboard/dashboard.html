@@ -25,13 +25,6 @@
   </div>
 </div>
 
-@if (selectedTicket(); as ticket) {
-  <app-ticket-details animate.leave="leaving-animation" [ticket]="ticket" (detailsClose)="onTicketDeselect()" />
-}
-
 <!-- Modals -->
-<app-create-ticket
-  [appModal]="'create-ticket'"
-  [isOpen]="modalService.isOpen('create-ticket')"
-  (modalClose)="modalService.close('create-ticket')"
-  (submitted)="ticketTable.reload()" />
+<app-create-ticket (submitted)="ticketTable.reload()" />
+<app-ticket-details />

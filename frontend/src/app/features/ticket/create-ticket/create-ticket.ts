@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, DestroyRef, inject, input, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { Icon } from '../../../common/icons/icon';
+import { Modal, ModalTitle, ModalContent } from '../../../common/shared/modal/modal';
 import { TicketsService } from '../../../core/api-generated';
 
 @Component({
   selector: 'app-create-ticket',
-  imports: [FormsModule, CommonModule, Icon],
+  imports: [FormsModule, CommonModule, Icon, Modal, ModalTitle, ModalContent],
   templateUrl: './create-ticket.html',
   styleUrl: './create-ticket.css',
 })
@@ -19,26 +20,10 @@ export class CreateTicket {
   errorMsg = signal<string | null>(null);
   submitted = output<void>();
 
-  readonly isOpen = input.required<boolean>();
-  readonly modalClose = output<void>();
-
   closeModal(): void {
-    this.modalClose.emit();
+    // FIXME: reset form
     this.errorMsg.set(null);
     this.isCreating.set(false);
-  }
-
-  onOverlayClick(event: MouseEvent | KeyboardEvent): void {
-    if (event instanceof KeyboardEvent) {
-      if (event.key === 'Escape') {
-        this.closeModal();
-      }
-      return;
-    }
-
-    if (event.target === event.currentTarget) {
-      this.closeModal();
-    }
   }
 
   submitTicket(formData: NgForm): void {

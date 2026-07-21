@@ -1,30 +1,15 @@
-@if (isOpen()) {
-<div
-  class="flex items-center justify-center"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="create-ticket-title"
-  (click)="onOverlayClick($event)"
-  (keydown)="onOverlayClick($event)"
-  animate.leave="leaving-animation">
-  <div
-    animate.enter="enter-animation"
-    class="w-full max-w-lg rounded-xl bg-surface p-6 shadow-2xl ring-2 ring-primary/70">
-    <div class="flex items-start justify-between gap-4">
-      <h1
-        id="create-ticket-title"
-        class="text-xl font-bold">
-        Create Ticket
-      </h1>
-      <button
-        type="button"
-        class="inline-flex h-8 w-8 items-center justify-center bg-transparent"
-        aria-label="Close create ticket modal"
-        (click)="closeModal()">
-        ✕
-      </button>
-    </div>
-
+<app-modal
+  #modal
+  modalId="create-ticket"
+  (modalClose)="closeModal()">
+  <app-modal-header>
+    <h1
+      id="create-ticket-title"
+      class="text-xl font-bold">
+      Create Ticket
+    </h1>
+  </app-modal-header>
+  <app-modal-content>
     <form
       #ticketForm="ngForm"
       class="mt-4 space-y-4"
@@ -46,7 +31,7 @@
           required />
 
         @if (ticketForm.submitted && title.invalid) {
-        <p class="text-error">Title is a required input.</p>
+          <p class="text-error">Title is a required input.</p>
         }
       </div>
 
@@ -67,19 +52,19 @@
           required></textarea>
 
         @if (ticketForm.submitted && desc.invalid) {
-        <p class="text-error">Description is a required input.</p>
+          <p class="text-error">Description is a required input.</p>
         }
       </div>
 
       @if (errorMsg()) {
-      <p class="text-error">Failed to save ticket: {{ errorMsg() }}</p>
+        <p class="text-error">Failed to save ticket: {{ errorMsg() }}</p>
       }
 
       <div class="flex items-center justify-end gap-2 pt-2">
         <button
           type="button"
           class="rounded bg-primary px-4 py-2 text-sm font-semibold hover:bg-primary/80"
-          (click)="closeModal()">
+          (click)="modal.close()">
           Cancel
         </button>
         <button
@@ -88,10 +73,11 @@
           [disabled]="isCreating()">
           @if (isCreating()) {
             <app-icon name="spinner-icon" />
-          } @else { Save }
+          } @else {
+            Save
+          }
         </button>
       </div>
     </form>
-  </div>
-</div>
-}
+  </app-modal-content>
+</app-modal>
