@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, DestroyRef, inject, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, output, signal, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { Icon } from '../../../common/icons/icon';
@@ -14,14 +14,16 @@ import { TicketsService } from '../../../core/api-generated';
   styleUrl: './create-ticket.css',
 })
 export class CreateTicket {
+  @ViewChild('ticketForm') private ticketForm?: NgForm;
+  @ViewChild('modal') private modal?: Modal;
   private destroyRef = inject(DestroyRef);
   private ticketService = inject(TicketsService);
   isCreating = signal(false);
   errorMsg = signal<string | null>(null);
   submitted = output<void>();
 
-  closeModal(): void {
-    // FIXME: reset form
+  resetForm(): void {
+    this.ticketForm?.resetForm();
     this.errorMsg.set(null);
     this.isCreating.set(false);
   }
@@ -39,7 +41,8 @@ export class CreateTicket {
       },
       complete: () => {
         this.isCreating.set(false);
-        this.closeModal();
+        this.modal?.close();
+        this.resetForm();
         this.submitted.emit();
       },
     });
