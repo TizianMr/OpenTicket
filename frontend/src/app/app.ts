@@ -7,6 +7,5 @@ import { Dashboard } from './features/dashboard/dashboard';
   selector: 'app-root',
   imports: [RouterOutlet, Dashboard],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {}

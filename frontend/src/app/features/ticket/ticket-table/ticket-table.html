@@ -19,7 +19,7 @@
 <div class="overflow-y-auto">
   @for (ticket of ticketResource.value()?.content; track ticket.id) {
     <div class="my-2">
-      <app-ticket-card [ticket]="ticket" (click)="onTicketSelect(ticket.id)" />
+      <app-ticket-card [ticket]="ticket" (click)="onTicketSelect(ticket)" />
     </div>
   }
 </div>

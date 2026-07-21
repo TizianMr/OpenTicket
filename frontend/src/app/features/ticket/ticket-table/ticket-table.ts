@@ -8,7 +8,7 @@ import { TicketTableHeader } from './ticket-table-header/ticket-table-header';
 import { TicketTableLoading } from './ticket-table-loading/ticket-table-loading';
 import { TicketTablePagination } from './ticket-table-pagination/ticket-table-pagination';
 import { THead, SortDirection, PageSize } from './ticket-table.types';
-import { TicketsService } from '../../../core/api-generated';
+import { TicketDto, TicketsService } from '../../../core/api-generated';
 import { LoadingService } from '../../../core/services/loading-service';
 
 @Component({
@@ -27,7 +27,7 @@ export class TicketTable {
   private ticketService = inject(TicketsService);
   private loadingService = inject(LoadingService);
 
-  protected readonly ticketSelect = output<string>();
+  protected readonly ticketSelect = output<TicketDto>();
 
   protected readonly headers = signal<THead[]>([
     { label: 'Status', key: 'status', sortDirection: undefined },
@@ -75,7 +75,7 @@ export class TicketTable {
     this.ticketResource.reload();
   }
 
-  onTicketSelect(ticketId: string): void {
-    this.ticketSelect.emit(ticketId);
+  onTicketSelect(ticket: TicketDto): void {
+    this.ticketSelect.emit(ticket);
   }
 }
