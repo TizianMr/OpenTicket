@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 
 import { TicketDto } from '../../../core/api-generated';
-import { TicketStatusBadge } from '../ticket-table/ticket-status-badge/ticket-status-badge';
+import { TicketStatusBadge } from '../_shared/ticket-status-badge/ticket-status-badge';
 
 @Component({
   selector: 'app-ticket-details',
